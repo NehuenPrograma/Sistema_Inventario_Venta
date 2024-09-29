@@ -30,6 +30,9 @@ namespace CapaPresentacion.Forms
         private void InitializeComponent()
         {
             this.pnlInfoProducto = new System.Windows.Forms.Panel();
+            this.nudStockProducto = new System.Windows.Forms.NumericUpDown();
+            this.nudPrecioVentaProducto = new System.Windows.Forms.NumericUpDown();
+            this.nudPrecioCompraProducto = new System.Windows.Forms.NumericUpDown();
             this.lblStock = new System.Windows.Forms.Label();
             this.cboCategoria = new System.Windows.Forms.ComboBox();
             this.lblCategoria = new System.Windows.Forms.Label();
@@ -55,14 +58,11 @@ namespace CapaPresentacion.Forms
             this.txtSumarStockProducto = new System.Windows.Forms.TextBox();
             this.tctRestarStockProducto = new System.Windows.Forms.TextBox();
             this.btnRestarStockProducto = new FontAwesome.Sharp.IconButton();
-            this.nudPrecioCompraProducto = new System.Windows.Forms.NumericUpDown();
-            this.nudPrecioVentaProducto = new System.Windows.Forms.NumericUpDown();
-            this.nudStockProducto = new System.Windows.Forms.NumericUpDown();
             this.pnlInfoProducto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioCompraProducto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVentaProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockProducto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVentaProducto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioCompraProducto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlInfoProducto
@@ -91,6 +91,35 @@ namespace CapaPresentacion.Forms
             this.pnlInfoProducto.Size = new System.Drawing.Size(286, 512);
             this.pnlInfoProducto.TabIndex = 13;
             this.pnlInfoProducto.Visible = false;
+            // 
+            // nudStockProducto
+            // 
+            this.nudStockProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.nudStockProducto.Location = new System.Drawing.Point(92, 290);
+            this.nudStockProducto.Name = "nudStockProducto";
+            this.nudStockProducto.Size = new System.Drawing.Size(86, 20);
+            this.nudStockProducto.TabIndex = 25;
+            this.nudStockProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // nudPrecioVentaProducto
+            // 
+            this.nudPrecioVentaProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.nudPrecioVentaProducto.DecimalPlaces = 2;
+            this.nudPrecioVentaProducto.Location = new System.Drawing.Point(128, 242);
+            this.nudPrecioVentaProducto.Name = "nudPrecioVentaProducto";
+            this.nudPrecioVentaProducto.Size = new System.Drawing.Size(99, 20);
+            this.nudPrecioVentaProducto.TabIndex = 24;
+            this.nudPrecioVentaProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // nudPrecioCompraProducto
+            // 
+            this.nudPrecioCompraProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.nudPrecioCompraProducto.DecimalPlaces = 2;
+            this.nudPrecioCompraProducto.Location = new System.Drawing.Point(128, 193);
+            this.nudPrecioCompraProducto.Name = "nudPrecioCompraProducto";
+            this.nudPrecioCompraProducto.Size = new System.Drawing.Size(99, 20);
+            this.nudPrecioCompraProducto.TabIndex = 23;
+            this.nudPrecioCompraProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblStock
             // 
@@ -374,36 +403,6 @@ namespace CapaPresentacion.Forms
             this.btnRestarStockProducto.Text = "Restar Stock";
             this.btnRestarStockProducto.UseVisualStyleBackColor = true;
             // 
-            // nudPrecioCompraProducto
-            // 
-            this.nudPrecioCompraProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.nudPrecioCompraProducto.DecimalPlaces = 2;
-            this.nudPrecioCompraProducto.Location = new System.Drawing.Point(128, 193);
-            this.nudPrecioCompraProducto.Name = "nudPrecioCompraProducto";
-            this.nudPrecioCompraProducto.Size = new System.Drawing.Size(99, 20);
-            this.nudPrecioCompraProducto.TabIndex = 23;
-            this.nudPrecioCompraProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            //this.nudPrecioCompraProducto.Controls[0].Visible = false;  rEVISAR PARA OCULTAR CONTROLORES DE INCREMENTO Y DECREMENTO    
-            // 
-            // nudPrecioVentaProducto
-            // 
-            this.nudPrecioVentaProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.nudPrecioVentaProducto.DecimalPlaces = 2;
-            this.nudPrecioVentaProducto.Location = new System.Drawing.Point(128, 242);
-            this.nudPrecioVentaProducto.Name = "nudPrecioVentaProducto";
-            this.nudPrecioVentaProducto.Size = new System.Drawing.Size(99, 20);
-            this.nudPrecioVentaProducto.TabIndex = 24;
-            this.nudPrecioVentaProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // nudStockProducto
-            // 
-            this.nudStockProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.nudStockProducto.Location = new System.Drawing.Point(92, 290);
-            this.nudStockProducto.Name = "nudStockProducto";
-            this.nudStockProducto.Size = new System.Drawing.Size(86, 20);
-            this.nudStockProducto.TabIndex = 25;
-            this.nudStockProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // FormInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -426,10 +425,10 @@ namespace CapaPresentacion.Forms
             this.Load += new System.EventHandler(this.FormInventario_Load);
             this.pnlInfoProducto.ResumeLayout(false);
             this.pnlInfoProducto.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioCompraProducto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVentaProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockProducto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVentaProducto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioCompraProducto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

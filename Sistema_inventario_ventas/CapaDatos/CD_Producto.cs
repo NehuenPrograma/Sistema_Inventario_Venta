@@ -18,7 +18,7 @@ namespace CapaDatos
 
             try
             {
-                datos.setearConsulta("Select p.IdProducto, c.Descripcion Categoria, p.Nombre, p.Talle, p.Color, p.Stock, p.PrecioCompra, p.PrecioVenta, p.Codigo From PRODUCTO p, CATEGORIA c Where p.IdCategoria = c.IdCategoria");
+                datos.setearConsulta("Select p.IdProducto, c.Descripcion Categoria, p.Nombre, p.Talle, p.Color, p.Stock, p.PrecioCompra, p.PrecioVenta, p.Codigo, c.IdCategoria From PRODUCTO p, CATEGORIA c Where p.IdCategoria = c.IdCategoria");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -26,6 +26,7 @@ namespace CapaDatos
                     Producto aux = new Producto();
                     aux.IdProducto = (int)datos.Lector["IdProducto"];
                     aux.oCategoria = new Categoria();
+                    aux.oCategoria.IdCategoria = (int)datos.Lector["IdCategoria"];
                     aux.oCategoria.Descripcion = (string)datos.Lector["Categoria"];
 
                     
@@ -89,9 +90,54 @@ namespace CapaDatos
             }
         }
 
-        public void modificar()
+        public void modificar(Producto producto)
         {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.setearConsulta("Update PRODUCTO set IdCategoria = @IdCategoria, Nombre = @Nombre, Talle = @Talle, Color = @Color, Stock = @Stock, PrecioCompra = @Compra, PrecioVenta = @Venta, Codigo = @Codigo, Estado = 1 Where IdProducto = @IdProducto");
+
+                datos.setearParametro("@IdCategoria", producto.oCategoria.IdCategoria);
+                datos.setearParametro("@Nombre", producto.Nombre);
+                datos.setearParametro("@Talle", producto.Talle);
+                datos.setearParametro("@Color", producto.Color);
+                datos.setearParametro("@Stock", producto.Stock);
+                datos.setearParametro("@Compra", producto.PrecioCompra);
+                datos.setearParametro("@Venta", producto.PrecioVenta);
+                datos.setearParametro("@Codigo", producto.Codigo);
+                datos.setearParametro("@IdProducto", producto.IdProducto);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("Delete From PRODUCTO Where IdProducto = @Id");
+                datos.setearParametro("@Id", id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
+
 }
