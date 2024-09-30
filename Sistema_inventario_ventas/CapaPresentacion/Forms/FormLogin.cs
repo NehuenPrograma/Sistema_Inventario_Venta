@@ -27,9 +27,13 @@ namespace CapaPresentacion.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            string nombreUsuario = tbxNDocLogin.Text;
+            string clave = tbxPasswordLogin.Text;
+
+
             List<Usuario> listaUsuarios = new UsuarioNegocio().Listar();
 
-            Usuario usuario = new UsuarioNegocio().Listar().Where(u => u.Documento == tbxNDocLogin.Text && u.Clave == tbxPasswordLogin.Text).FirstOrDefault();
+            Usuario usuario = new UsuarioNegocio().Listar().Where(u => u.Documento == nombreUsuario && u.Clave == clave).FirstOrDefault();
 
             if(usuario != null)
             {

@@ -51,18 +51,20 @@ namespace CapaPresentacion.Forms
             this.btnEliminarProducto = new FontAwesome.Sharp.IconButton();
             this.btnModificarProducto = new FontAwesome.Sharp.IconButton();
             this.btnAgregarProducto = new FontAwesome.Sharp.IconButton();
-            this.btnBuscarProducto = new FontAwesome.Sharp.IconButton();
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.dgvInventario = new System.Windows.Forms.DataGridView();
             this.btnSumarStockProducto = new FontAwesome.Sharp.IconButton();
-            this.txtSumarStockProducto = new System.Windows.Forms.TextBox();
-            this.tctRestarStockProducto = new System.Windows.Forms.TextBox();
             this.btnRestarStockProducto = new FontAwesome.Sharp.IconButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudSumarStock = new System.Windows.Forms.NumericUpDown();
+            this.nudRestarStock = new System.Windows.Forms.NumericUpDown();
             this.pnlInfoProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVentaProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioCompraProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSumarStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRestarStock)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlInfoProducto
@@ -321,30 +323,15 @@ namespace CapaPresentacion.Forms
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
             this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
-            // btnBuscarProducto
-            // 
-            this.btnBuscarProducto.BackColor = System.Drawing.Color.Transparent;
-            this.btnBuscarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscarProducto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(9)))), ((int)(((byte)(90)))));
-            this.btnBuscarProducto.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnBuscarProducto.IconColor = System.Drawing.Color.Black;
-            this.btnBuscarProducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnBuscarProducto.Location = new System.Drawing.Point(26, 27);
-            this.btnBuscarProducto.Name = "btnBuscarProducto";
-            this.btnBuscarProducto.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscarProducto.TabIndex = 2;
-            this.btnBuscarProducto.Text = "Buscar";
-            this.btnBuscarProducto.UseVisualStyleBackColor = false;
-            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
-            // 
             // txtBuscarProducto
             // 
             this.txtBuscarProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txtBuscarProducto.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtBuscarProducto.Location = new System.Drawing.Point(122, 29);
+            this.txtBuscarProducto.Location = new System.Drawing.Point(87, 29);
             this.txtBuscarProducto.Name = "txtBuscarProducto";
             this.txtBuscarProducto.Size = new System.Drawing.Size(168, 20);
             this.txtBuscarProducto.TabIndex = 1;
+            this.txtBuscarProducto.TextChanged += new System.EventHandler(this.txtBuscarProducto_TextChanged);
             // 
             // dgvInventario
             // 
@@ -365,28 +352,13 @@ namespace CapaPresentacion.Forms
             this.btnSumarStockProducto.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnSumarStockProducto.IconColor = System.Drawing.Color.Black;
             this.btnSumarStockProducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSumarStockProducto.Location = new System.Drawing.Point(423, 27);
+            this.btnSumarStockProducto.Location = new System.Drawing.Point(409, 26);
             this.btnSumarStockProducto.Name = "btnSumarStockProducto";
             this.btnSumarStockProducto.Size = new System.Drawing.Size(100, 23);
             this.btnSumarStockProducto.TabIndex = 7;
             this.btnSumarStockProducto.Text = "Agregar Stock";
             this.btnSumarStockProducto.UseVisualStyleBackColor = true;
-            // 
-            // txtSumarStockProducto
-            // 
-            this.txtSumarStockProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtSumarStockProducto.Location = new System.Drawing.Point(543, 29);
-            this.txtSumarStockProducto.Name = "txtSumarStockProducto";
-            this.txtSumarStockProducto.Size = new System.Drawing.Size(73, 20);
-            this.txtSumarStockProducto.TabIndex = 6;
-            // 
-            // tctRestarStockProducto
-            // 
-            this.tctRestarStockProducto.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.tctRestarStockProducto.Location = new System.Drawing.Point(543, 447);
-            this.tctRestarStockProducto.Name = "tctRestarStockProducto";
-            this.tctRestarStockProducto.Size = new System.Drawing.Size(73, 20);
-            this.tctRestarStockProducto.TabIndex = 8;
+            this.btnSumarStockProducto.Click += new System.EventHandler(this.btnSumarStockProducto_Click);
             // 
             // btnRestarStockProducto
             // 
@@ -396,12 +368,41 @@ namespace CapaPresentacion.Forms
             this.btnRestarStockProducto.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnRestarStockProducto.IconColor = System.Drawing.Color.Black;
             this.btnRestarStockProducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRestarStockProducto.Location = new System.Drawing.Point(423, 445);
+            this.btnRestarStockProducto.Location = new System.Drawing.Point(409, 445);
             this.btnRestarStockProducto.Name = "btnRestarStockProducto";
             this.btnRestarStockProducto.Size = new System.Drawing.Size(100, 23);
             this.btnRestarStockProducto.TabIndex = 9;
             this.btnRestarStockProducto.Text = "Restar Stock";
             this.btnRestarStockProducto.UseVisualStyleBackColor = true;
+            this.btnRestarStockProducto.Click += new System.EventHandler(this.btnRestarStockProducto_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label1.Location = new System.Drawing.Point(43, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Filtrar :";
+            // 
+            // nudSumarStock
+            // 
+            this.nudSumarStock.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.nudSumarStock.Location = new System.Drawing.Point(529, 29);
+            this.nudSumarStock.Name = "nudSumarStock";
+            this.nudSumarStock.Size = new System.Drawing.Size(86, 20);
+            this.nudSumarStock.TabIndex = 26;
+            this.nudSumarStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // nudRestarStock
+            // 
+            this.nudRestarStock.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.nudRestarStock.Location = new System.Drawing.Point(529, 445);
+            this.nudRestarStock.Name = "nudRestarStock";
+            this.nudRestarStock.Size = new System.Drawing.Size(86, 20);
+            this.nudRestarStock.TabIndex = 27;
+            this.nudRestarStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // FormInventario
             // 
@@ -409,15 +410,15 @@ namespace CapaPresentacion.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(955, 512);
-            this.Controls.Add(this.tctRestarStockProducto);
+            this.Controls.Add(this.nudRestarStock);
+            this.Controls.Add(this.nudSumarStock);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRestarStockProducto);
-            this.Controls.Add(this.txtSumarStockProducto);
             this.Controls.Add(this.btnSumarStockProducto);
             this.Controls.Add(this.pnlInfoProducto);
             this.Controls.Add(this.btnEliminarProducto);
             this.Controls.Add(this.btnModificarProducto);
             this.Controls.Add(this.btnAgregarProducto);
-            this.Controls.Add(this.btnBuscarProducto);
             this.Controls.Add(this.txtBuscarProducto);
             this.Controls.Add(this.dgvInventario);
             this.Name = "FormInventario";
@@ -429,6 +430,8 @@ namespace CapaPresentacion.Forms
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVentaProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioCompraProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSumarStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRestarStock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,7 +451,6 @@ namespace CapaPresentacion.Forms
         private FontAwesome.Sharp.IconButton btnEliminarProducto;
         private FontAwesome.Sharp.IconButton btnModificarProducto;
         private FontAwesome.Sharp.IconButton btnAgregarProducto;
-        private FontAwesome.Sharp.IconButton btnBuscarProducto;
         private System.Windows.Forms.TextBox txtBuscarProducto;
         private System.Windows.Forms.DataGridView dgvInventario;
         private System.Windows.Forms.Label lblCodigoProducto;
@@ -456,8 +458,6 @@ namespace CapaPresentacion.Forms
         private System.Windows.Forms.Label lblColorProducto;
         private System.Windows.Forms.TextBox txtColorProducto;
         private FontAwesome.Sharp.IconButton btnSumarStockProducto;
-        private System.Windows.Forms.TextBox txtSumarStockProducto;
-        private System.Windows.Forms.TextBox tctRestarStockProducto;
         private FontAwesome.Sharp.IconButton btnRestarStockProducto;
         private System.Windows.Forms.ComboBox cboCategoria;
         private System.Windows.Forms.Label lblCategoria;
@@ -465,5 +465,8 @@ namespace CapaPresentacion.Forms
         private System.Windows.Forms.NumericUpDown nudStockProducto;
         private System.Windows.Forms.NumericUpDown nudPrecioVentaProducto;
         private System.Windows.Forms.NumericUpDown nudPrecioCompraProducto;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nudSumarStock;
+        private System.Windows.Forms.NumericUpDown nudRestarStock;
     }
 }

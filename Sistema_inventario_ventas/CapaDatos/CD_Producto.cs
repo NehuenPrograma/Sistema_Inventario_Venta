@@ -138,6 +138,47 @@ namespace CapaDatos
                 throw ex;
             }
         }
+
+        public void sumarStock(int idProducto, int stock)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE PRODUCTO SET Stock = Stock + @Cantidad WHERE IdProducto = @IdProducto");
+                datos.setearParametro("@Cantidad", stock);
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void restarStock(int idProducto, int stock)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE PRODUCTO SET Stock = Stock - @Cantidad WHERE IdProducto = @IdProducto");
+                datos.setearParametro("@Cantidad", stock);
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 
 }

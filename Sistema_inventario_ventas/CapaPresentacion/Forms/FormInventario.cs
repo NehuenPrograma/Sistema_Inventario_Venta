@@ -34,6 +34,7 @@ namespace CapaPresentacion.Forms
         {
             cargar();
             alinearContenidoCeldas();
+
         }
 
         private void cargar()
@@ -43,7 +44,7 @@ namespace CapaPresentacion.Forms
             {
                 listaProductos = negocio.Listar();
                 dgvInventario.DataSource = listaProductos;
-                dgvInventario.Columns["IdProducto"].Visible = false;
+                ocultarColumnas();
             }
             catch (Exception ex)
             {
@@ -51,6 +52,13 @@ namespace CapaPresentacion.Forms
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void ocultarColumnas()
+        {
+            dgvInventario.Columns["IdProducto"].Visible = false;
+
+        }
+
 
         private void alinearContenidoCeldas()
         {
@@ -91,8 +99,24 @@ namespace CapaPresentacion.Forms
             }
         }
 
-        private void btnBuscarProducto_Click(object sender, EventArgs e)
+        private void txtBuscarProducto_TextChanged(object sender, EventArgs e)
         {
+            List<Producto> listaFiltrada;
+            string filtro = txtBuscarProducto.Text;
+
+            if (filtro != "")
+            {
+                listaFiltrada = listaProductos.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Talle.ToUpper().Contains(filtro.ToUpper()) || x.Color.ToUpper().Contains(filtro.ToUpper()) || x.Codigo.ToUpper().Contains(filtro.ToUpper()) || x.oCategoria.Descripcion.ToUpper().Contains(filtro.ToUpper())); // Agregar todos lo campos necesarios para filtrar
+            }
+            else
+            {
+                listaFiltrada = listaProductos;
+            }
+
+
+            //dgvInventario.DataSource = null;
+            dgvInventario.DataSource = listaFiltrada;
+            ocultarColumnas();
 
         }
 
@@ -263,6 +287,52 @@ namespace CapaPresentacion.Forms
         {
             pnlInfoProducto.Visible = false;
         }
+
+        private void btnSumarStockProducto_Click(object sender, EventArgs e) // CAMBIAR MAXIMO Y MINIMO SOLO SUBE DE A 100
+        {
+            if (dgvInventario.CurrentRow != null && dgvInventario.CurrentRow.DataBoundItem != null)
+            {
+                Producto seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
+
+                int cantidad = (int)nudSumarStock.Value;
+
+                CD_Producto negocio = new CD_Producto();
+                negocio.sumarStock(seleccionado.IdProducto, cantidad);
+
+                cargar();
+            }
+        }
+
+        private void btnRestarStockProducto_Click(object sender, EventArgs e)
+        {
+            if (dgvInventario.CurrentRow != null && dgvInventario.CurrentRow.DataBoundItem != null)
+            {
+                Producto seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
+                int cantidad = (int)nudRestarStock.Value;
+
+                CD_Producto negocio = new CD_Producto();
+                negocio.restarStock(seleccionado.IdProducto, cantidad);
+
+                cargar();
+            }
+        }
+
+
+        // Deshabiliatar controles para ROL EMPLEADO  CONTROLAR !!!!
+
+        public void ConfigurarPermisos(string rol)
+        {
+            bool esEmpleado = rol.Equals("EMPLEADO", StringComparison.OrdinalIgnoreCase);
+
+            btnAgregarProducto.Visible = !esEmpleado;
+            btnModificarProducto.Visible = !esEmpleado;
+            btnEliminarProducto.Visible = !esEmpleado;
+            btnSumarStockProducto.Visible = !esEmpleado;
+            btnRestarStockProducto.Visible = !esEmpleado;
+            nudSumarStock.Visible = !esEmpleado;
+            nudRestarStock.Visible = !esEmpleado;
+        }
+
 
     }
 }
