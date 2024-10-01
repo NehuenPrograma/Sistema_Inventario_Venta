@@ -65,6 +65,11 @@ namespace CapaPresentacion
             }
             pnlLogo.Visible = true;
 
+
+            // ROL del Usuario Actual  IMPORTATNTE ENVIAR A FormInventario  AVERIGUAR !!!!!
+            int rolUsuarioActual = usuarioActual.oRol.IdRol;
+
+
         }
 
         //Estructura para colores

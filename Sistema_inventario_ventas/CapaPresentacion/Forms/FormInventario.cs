@@ -25,7 +25,6 @@ namespace CapaPresentacion.Forms
         public FormInventario()
         {
             InitializeComponent();
-
             // Actualizar pnlInfoProducto en Modificar segun se cambie el Producto seleccionado
             dgvInventario.SelectionChanged += dgvInventario_SelectionChanged;
         }
@@ -210,13 +209,20 @@ namespace CapaPresentacion.Forms
 
             try
             {
-                DialogResult respuesta = MessageBox.Show("Desea eliminar el producto seleccionado, no es reversible", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (respuesta == DialogResult.Yes)
+                if (dgvInventario.CurrentRow != null && dgvInventario.CurrentRow.DataBoundItem != null)
                 {
-                    seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
-                    negocio.eliminar(seleccionado.IdProducto);
-                    cargar();
+                    DialogResult respuesta = MessageBox.Show("Desea eliminar el producto seleccionado, no es reversible", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
+                        negocio.eliminar(seleccionado.IdProducto);
+                        cargar();
+                    }
                 }
+                else
+                    MessageBox.Show("Ningun producto selecionado");
+                    
             }
             catch (Exception ex)
             {
@@ -288,18 +294,44 @@ namespace CapaPresentacion.Forms
             pnlInfoProducto.Visible = false;
         }
 
-        private void btnSumarStockProducto_Click(object sender, EventArgs e) // CAMBIAR MAXIMO Y MINIMO SOLO SUBE DE A 100
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter)))
+                    return false;
+            }
+             return true;
+        }
+
+        private void btnSumarStockProducto_Click(object sender, EventArgs e) 
         {
             if (dgvInventario.CurrentRow != null && dgvInventario.CurrentRow.DataBoundItem != null)
             {
                 Producto seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
 
-                int cantidad = (int)nudSumarStock.Value;
+                if(!(string.IsNullOrEmpty(txtSumarStock.Text)))
+                {
+                    if (soloNumeros(txtSumarStock.Text))
+                    {
+                        int cantidad = int.Parse(txtSumarStock.Text);
 
-                CD_Producto negocio = new CD_Producto();
-                negocio.sumarStock(seleccionado.IdProducto, cantidad);
+                        CD_Producto negocio = new CD_Producto();
+                        negocio.sumarStock(seleccionado.IdProducto, cantidad);
+                        if(txtSumarStock.Text != "0")
+                        {
+                            MessageBox.Show("Stock agregado", "Stock sumado");
+                            cargar();
+                            txtSumarStock.Text = "0";
+                        }
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cargar solo numeros por favor", "Solo numeros");
+                    }
+                }                    
 
-                cargar();
             }
         }
 
@@ -308,12 +340,28 @@ namespace CapaPresentacion.Forms
             if (dgvInventario.CurrentRow != null && dgvInventario.CurrentRow.DataBoundItem != null)
             {
                 Producto seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
-                int cantidad = (int)nudRestarStock.Value;
 
-                CD_Producto negocio = new CD_Producto();
-                negocio.restarStock(seleccionado.IdProducto, cantidad);
+                if (!(string.IsNullOrEmpty(txtRestarStock.Text)))
+                {
+                    if (soloNumeros(txtRestarStock.Text))
+                    {
+                        int cantidad = int.Parse(txtSumarStock.Text);
 
-                cargar();
+                        CD_Producto negocio = new CD_Producto();
+                        negocio.sumarStock(seleccionado.IdProducto, cantidad);
+                        if (txtRestarStock.Text != "0")
+                        {
+                            MessageBox.Show("Stock restado", "Stock restado");
+                            cargar();
+                            txtRestarStock.Text = "0";
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cargar solo numeros por favor", "Solo numeros");
+                    }
+                }
             }
         }
 
@@ -329,8 +377,8 @@ namespace CapaPresentacion.Forms
             btnEliminarProducto.Visible = !esEmpleado;
             btnSumarStockProducto.Visible = !esEmpleado;
             btnRestarStockProducto.Visible = !esEmpleado;
-            nudSumarStock.Visible = !esEmpleado;
-            nudRestarStock.Visible = !esEmpleado;
+            txtSumarStock.Visible = !esEmpleado;
+            txtRestarStock.Visible = !esEmpleado;
         }
 
 
