@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using CapaNegocio;
 using CapaEntidad;
 
+using CapaDatos;
+
 namespace CapaPresentacion.Forms
 {
     public partial class FormLogin : Form
@@ -37,6 +39,8 @@ namespace CapaPresentacion.Forms
 
             if(usuario != null)
             {
+                
+
                 Inicio form = new Inicio(usuario);
 
                 form.Show();

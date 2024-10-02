@@ -24,6 +24,8 @@ namespace CapaEntidad
         // oRol == objeto Rol
         [DisplayName("Rol")]
         public Rol oRol { get; set; }
+
+        public int IdRol { get; set; }
         public string FechaRegistro { get; set; }
     }
 }

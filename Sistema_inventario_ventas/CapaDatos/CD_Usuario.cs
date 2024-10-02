@@ -18,7 +18,7 @@ namespace CapaDatos
 
             try
             {
-                datos.setearConsulta("Select u.IdUsuario, u.Documento, u.NombreCompleto, u.Correo, u.Clave, r.Descripcion From USUARIO u, ROL r Where u.IdRol = r.IdRol");
+                datos.setearConsulta("Select u.IdUsuario, u.Documento, u.NombreCompleto, u.Correo, u.Clave, u.IdRol, r.Descripcion From USUARIO u, ROL r Where u.IdRol = r.IdRol");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -31,6 +31,8 @@ namespace CapaDatos
                     aux.Clave = (string)datos.Lector["Clave"];
                     aux.oRol = new Rol();
                     aux.oRol.Descripcion = (string)datos.Lector["Descripcion"];
+
+                    aux.IdRol = (int)datos.Lector["IdRol"];
 
 
                     lista.Add(aux);

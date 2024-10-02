@@ -13,6 +13,7 @@ using FontAwesome.Sharp;
 using CapaEntidad;
 using CapaNegocio;
 
+
 namespace CapaPresentacion
 {
     public partial class Inicio : Form
@@ -66,8 +67,6 @@ namespace CapaPresentacion
             pnlLogo.Visible = true;
 
 
-            // ROL del Usuario Actual  IMPORTATNTE ENVIAR A FormInventario  AVERIGUAR !!!!!
-            int rolUsuarioActual = usuarioActual.oRol.IdRol;
 
 
         }
@@ -147,6 +146,19 @@ namespace CapaPresentacion
 
         }
 
+        
+
+        // Metodo Reset clik en logo
+        private void Reset()
+        {
+            DisableButton();
+            leftBorderBtn.Visible = false;
+            iconCurrentChildForm.IconChar = IconChar.Home;
+            iconCurrentChildForm.IconColor = Color.Gainsboro;
+            lblTitleChildForm.Text = "Home";
+        }
+
+
         // Apertura de Forms
 
         private void btnUsuario_Click(object sender, EventArgs e)
@@ -158,7 +170,7 @@ namespace CapaPresentacion
         private void btnInventario_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new FormInventario());
+            OpenChildForm(new FormInventario(usuarioActual));
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
@@ -198,15 +210,6 @@ namespace CapaPresentacion
             Reset();
         }
 
-        // Reset clik en logo
-        private void Reset()
-        {
-            DisableButton();
-            leftBorderBtn.Visible = false;
-            iconCurrentChildForm.IconChar = IconChar.Home;
-            iconCurrentChildForm.IconColor = Color.Gainsboro;
-            lblTitleChildForm.Text = "Home";
-        }
 
         // no me acuerdo pero sirve ja
 

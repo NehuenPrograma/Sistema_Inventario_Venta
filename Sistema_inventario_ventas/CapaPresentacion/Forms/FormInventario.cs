@@ -11,6 +11,7 @@ using CapaNegocio;
 using CapaEntidad;
 using CapaDatos;
 using System.Globalization;
+using CapaPresentacion.Forms;
 
 namespace CapaPresentacion.Forms
 {
@@ -21,10 +22,14 @@ namespace CapaPresentacion.Forms
         // relacion btnAceptar
         private Producto producto = null;
 
+        private Usuario usuarioActual;
 
-        public FormInventario()
+        public FormInventario(Usuario usuario)
         {
             InitializeComponent();
+
+            usuarioActual = usuario;
+
             // Actualizar pnlInfoProducto en Modificar segun se cambie el Producto seleccionado
             dgvInventario.SelectionChanged += dgvInventario_SelectionChanged;
         }
@@ -33,6 +38,11 @@ namespace CapaPresentacion.Forms
         {
             cargar();
             alinearContenidoCeldas();
+
+            if (usuarioActual.IdRol == 2) 
+            {
+                desacativarEmpleado();
+            }
 
         }
 
@@ -368,17 +378,15 @@ namespace CapaPresentacion.Forms
 
         // Deshabiliatar controles para ROL EMPLEADO  CONTROLAR !!!!
 
-        public void ConfigurarPermisos(string rol)
+        public void desacativarEmpleado()
         {
-            bool esEmpleado = rol.Equals("EMPLEADO", StringComparison.OrdinalIgnoreCase);
-
-            btnAgregarProducto.Visible = !esEmpleado;
-            btnModificarProducto.Visible = !esEmpleado;
-            btnEliminarProducto.Visible = !esEmpleado;
-            btnSumarStockProducto.Visible = !esEmpleado;
-            btnRestarStockProducto.Visible = !esEmpleado;
-            txtSumarStock.Visible = !esEmpleado;
-            txtRestarStock.Visible = !esEmpleado;
+            btnAgregarProducto.Visible = false;
+            btnModificarProducto.Visible = false;
+            btnEliminarProducto.Visible = false;
+            btnSumarStockProducto.Visible = false;
+            btnRestarStockProducto.Visible = false;
+            txtSumarStock.Visible = false;
+            txtRestarStock.Visible = false;
         }
 
 
