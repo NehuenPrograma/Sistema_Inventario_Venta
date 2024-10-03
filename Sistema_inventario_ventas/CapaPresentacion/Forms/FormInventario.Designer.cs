@@ -30,6 +30,9 @@ namespace CapaPresentacion.Forms
         private void InitializeComponent()
         {
             this.pnlInfoProducto = new System.Windows.Forms.Panel();
+            this.btnAceptarAgregarCategoria = new FontAwesome.Sharp.IconButton();
+            this.txtAgregarCategoria = new System.Windows.Forms.TextBox();
+            this.btnAgregarCategoria = new FontAwesome.Sharp.IconButton();
             this.nudStockProducto = new System.Windows.Forms.NumericUpDown();
             this.nudPrecioVentaProducto = new System.Windows.Forms.NumericUpDown();
             this.nudPrecioCompraProducto = new System.Windows.Forms.NumericUpDown();
@@ -67,6 +70,9 @@ namespace CapaPresentacion.Forms
             // 
             // pnlInfoProducto
             // 
+            this.pnlInfoProducto.Controls.Add(this.btnAceptarAgregarCategoria);
+            this.pnlInfoProducto.Controls.Add(this.txtAgregarCategoria);
+            this.pnlInfoProducto.Controls.Add(this.btnAgregarCategoria);
             this.pnlInfoProducto.Controls.Add(this.nudStockProducto);
             this.pnlInfoProducto.Controls.Add(this.nudPrecioVentaProducto);
             this.pnlInfoProducto.Controls.Add(this.nudPrecioCompraProducto);
@@ -91,6 +97,49 @@ namespace CapaPresentacion.Forms
             this.pnlInfoProducto.Size = new System.Drawing.Size(286, 512);
             this.pnlInfoProducto.TabIndex = 13;
             this.pnlInfoProducto.Visible = false;
+            // 
+            // btnAceptarAgregarCategoria
+            // 
+            this.btnAceptarAgregarCategoria.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAceptarAgregarCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(9)))), ((int)(((byte)(90)))));
+            this.btnAceptarAgregarCategoria.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnAceptarAgregarCategoria.IconColor = System.Drawing.Color.Black;
+            this.btnAceptarAgregarCategoria.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAceptarAgregarCategoria.Location = new System.Drawing.Point(180, 71);
+            this.btnAceptarAgregarCategoria.Name = "btnAceptarAgregarCategoria";
+            this.btnAceptarAgregarCategoria.Size = new System.Drawing.Size(52, 21);
+            this.btnAceptarAgregarCategoria.TabIndex = 20;
+            this.btnAceptarAgregarCategoria.Text = "Agregar";
+            this.btnAceptarAgregarCategoria.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAceptarAgregarCategoria.UseVisualStyleBackColor = true;
+            this.btnAceptarAgregarCategoria.Visible = false;
+            this.btnAceptarAgregarCategoria.Click += new System.EventHandler(this.btnAceptarAgregarCategoria_Click);
+            // 
+            // txtAgregarCategoria
+            // 
+            this.txtAgregarCategoria.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtAgregarCategoria.Location = new System.Drawing.Point(57, 72);
+            this.txtAgregarCategoria.Name = "txtAgregarCategoria";
+            this.txtAgregarCategoria.Size = new System.Drawing.Size(121, 20);
+            this.txtAgregarCategoria.TabIndex = 19;
+            this.txtAgregarCategoria.Visible = false;
+            // 
+            // btnAgregarCategoria
+            // 
+            this.btnAgregarCategoria.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(9)))), ((int)(((byte)(90)))));
+            this.btnAgregarCategoria.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnAgregarCategoria.IconColor = System.Drawing.Color.Black;
+            this.btnAgregarCategoria.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAgregarCategoria.IconSize = 23;
+            this.btnAgregarCategoria.Location = new System.Drawing.Point(236, 45);
+            this.btnAgregarCategoria.Name = "btnAgregarCategoria";
+            this.btnAgregarCategoria.Size = new System.Drawing.Size(23, 23);
+            this.btnAgregarCategoria.TabIndex = 18;
+            this.btnAgregarCategoria.Text = "+";
+            this.btnAgregarCategoria.UseVisualStyleBackColor = true;
+            this.btnAgregarCategoria.Click += new System.EventHandler(this.btnAgregarCategoria_Click);
             // 
             // nudStockProducto
             // 
@@ -466,5 +515,8 @@ namespace CapaPresentacion.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSumarStock;
         private System.Windows.Forms.TextBox txtRestarStock;
+        private System.Windows.Forms.TextBox txtAgregarCategoria;
+        private FontAwesome.Sharp.IconButton btnAgregarCategoria;
+        private FontAwesome.Sharp.IconButton btnAceptarAgregarCategoria;
     }
 }

@@ -389,6 +389,26 @@ namespace CapaPresentacion.Forms
             txtRestarStock.Visible = false;
         }
 
+        private void btnAgregarCategoria_Click(object sender, EventArgs e)
+        {
+            txtAgregarCategoria.Visible = true;
+            btnAceptarAgregarCategoria.Visible = true;
+        }
 
+        private void btnAceptarAgregarCategoria_Click(object sender, EventArgs e)
+        {
+            Categoria categoria = new Categoria(); 
+            categoria.Descripcion = txtAgregarCategoria.Text;
+
+            CD_Categoria nuevaCategoria = new CD_Categoria();
+
+            nuevaCategoria.agregarCategoria(categoria);
+
+            leerCategoria();
+
+            txtAgregarCategoria.Visible = false;
+            btnAceptarAgregarCategoria.Visible = false;
+
+        }
     }
 }
