@@ -16,6 +16,11 @@ namespace CapaNegocio
         {
             return usuario.Listar();
         }
+        public bool UsuarioExiste(string documento)
+        {
+            CD_Usuario datos = new CD_Usuario();
+            return datos.UsuarioExiste(documento);
+        }
 
     }
 }

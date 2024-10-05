@@ -61,6 +61,11 @@ namespace CapaDatos
 
         public void agregar(Producto nuevo)
         {
+            if (productoExiste(nuevo.Codigo))
+            {
+                throw new Exception("El código del producto ya existe.");
+            }
+
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -82,6 +87,29 @@ namespace CapaDatos
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public bool productoExiste(string codigo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM Producto WHERE Codigo = @Codigo");
+                datos.setearParametro("@Codigo", codigo);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    return (int)datos.Lector[0] > 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             finally

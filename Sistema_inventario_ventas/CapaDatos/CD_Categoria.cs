@@ -51,12 +51,61 @@ namespace CapaDatos
 
         public void agregarCategoria(Categoria categoria)
         {
+            if (categoriaExiste(categoria.Descripcion))
+            {
+                throw new Exception("La categoría ya existe.");
+            }
+
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
                 datos.setearConsulta("INSERT INTO Categoria (Descripcion) VALUES (@Descripcion)");
                 datos.setearParametro("@Descripcion", categoria.Descripcion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool categoriaExiste(string descripcion)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM Categoria WHERE Descripcion = @Descripcion");
+                datos.setearParametro("@Descripcion", descripcion);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    return (int)datos.Lector[0] > 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminarCategoria(int idCategoria)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("DELETE FROM Categoria WHERE IdCategoria = @IdCategoria");
+                datos.setearParametro("@IdCategoria", idCategoria);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

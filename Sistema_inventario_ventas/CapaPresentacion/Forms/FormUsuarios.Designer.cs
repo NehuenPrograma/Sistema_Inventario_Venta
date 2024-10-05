@@ -31,7 +31,6 @@ namespace CapaPresentacion.Forms
         {
             this.dgvUsuario = new System.Windows.Forms.DataGridView();
             this.txtBuscarUsuario = new System.Windows.Forms.TextBox();
-            this.btnBuscarUsuario = new FontAwesome.Sharp.IconButton();
             this.btnAgregarUsuario = new FontAwesome.Sharp.IconButton();
             this.btnModificarUsuario = new FontAwesome.Sharp.IconButton();
             this.btnEliminarUsuario = new FontAwesome.Sharp.IconButton();
@@ -48,6 +47,7 @@ namespace CapaPresentacion.Forms
             this.txtCorreoUsuario = new System.Windows.Forms.TextBox();
             this.txtNombreUsuario = new System.Windows.Forms.TextBox();
             this.txtDocumentoUsuario = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuario)).BeginInit();
             this.pnlInfoUsuario.SuspendLayout();
             this.SuspendLayout();
@@ -55,8 +55,11 @@ namespace CapaPresentacion.Forms
             // dgvUsuario
             // 
             this.dgvUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsuario.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvUsuario.Location = new System.Drawing.Point(26, 69);
+            this.dgvUsuario.MultiSelect = false;
             this.dgvUsuario.Name = "dgvUsuario";
+            this.dgvUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsuario.Size = new System.Drawing.Size(577, 343);
             this.dgvUsuario.TabIndex = 0;
             // 
@@ -64,26 +67,11 @@ namespace CapaPresentacion.Forms
             // 
             this.txtBuscarUsuario.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txtBuscarUsuario.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtBuscarUsuario.Location = new System.Drawing.Point(122, 29);
+            this.txtBuscarUsuario.Location = new System.Drawing.Point(95, 29);
             this.txtBuscarUsuario.Name = "txtBuscarUsuario";
             this.txtBuscarUsuario.Size = new System.Drawing.Size(168, 20);
             this.txtBuscarUsuario.TabIndex = 1;
-            // 
-            // btnBuscarUsuario
-            // 
-            this.btnBuscarUsuario.BackColor = System.Drawing.Color.Transparent;
-            this.btnBuscarUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscarUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(99)))), ((int)(((byte)(221)))));
-            this.btnBuscarUsuario.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnBuscarUsuario.IconColor = System.Drawing.Color.Black;
-            this.btnBuscarUsuario.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnBuscarUsuario.Location = new System.Drawing.Point(26, 27);
-            this.btnBuscarUsuario.Name = "btnBuscarUsuario";
-            this.btnBuscarUsuario.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscarUsuario.TabIndex = 2;
-            this.btnBuscarUsuario.Text = "Buscar";
-            this.btnBuscarUsuario.UseVisualStyleBackColor = false;
-            this.btnBuscarUsuario.Click += new System.EventHandler(this.btnBuscarUsuario_Click);
+            this.txtBuscarUsuario.TextChanged += new System.EventHandler(this.txtBuscarUsuario_TextChanged);
             // 
             // btnAgregarUsuario
             // 
@@ -158,9 +146,9 @@ namespace CapaPresentacion.Forms
             this.lblRolUsuario.ForeColor = System.Drawing.Color.Gainsboro;
             this.lblRolUsuario.Location = new System.Drawing.Point(38, 282);
             this.lblRolUsuario.Name = "lblRolUsuario";
-            this.lblRolUsuario.Size = new System.Drawing.Size(23, 13);
+            this.lblRolUsuario.Size = new System.Drawing.Size(29, 13);
             this.lblRolUsuario.TabIndex = 12;
-            this.lblRolUsuario.Text = "Rol";
+            this.lblRolUsuario.Text = "Rol :";
             // 
             // lblClaveUsuario
             // 
@@ -168,9 +156,9 @@ namespace CapaPresentacion.Forms
             this.lblClaveUsuario.ForeColor = System.Drawing.Color.Gainsboro;
             this.lblClaveUsuario.Location = new System.Drawing.Point(12, 226);
             this.lblClaveUsuario.Name = "lblClaveUsuario";
-            this.lblClaveUsuario.Size = new System.Drawing.Size(61, 13);
+            this.lblClaveUsuario.Size = new System.Drawing.Size(67, 13);
             this.lblClaveUsuario.TabIndex = 11;
-            this.lblClaveUsuario.Text = "Contraseña";
+            this.lblClaveUsuario.Text = "Contraseña :";
             // 
             // lblCorreoUsuario
             // 
@@ -178,9 +166,9 @@ namespace CapaPresentacion.Forms
             this.lblCorreoUsuario.ForeColor = System.Drawing.Color.Gainsboro;
             this.lblCorreoUsuario.Location = new System.Drawing.Point(38, 172);
             this.lblCorreoUsuario.Name = "lblCorreoUsuario";
-            this.lblCorreoUsuario.Size = new System.Drawing.Size(32, 13);
+            this.lblCorreoUsuario.Size = new System.Drawing.Size(38, 13);
             this.lblCorreoUsuario.TabIndex = 10;
-            this.lblCorreoUsuario.Text = "Email";
+            this.lblCorreoUsuario.Text = "Email :";
             // 
             // lblNombreUsuario
             // 
@@ -188,9 +176,9 @@ namespace CapaPresentacion.Forms
             this.lblNombreUsuario.ForeColor = System.Drawing.Color.Gainsboro;
             this.lblNombreUsuario.Location = new System.Drawing.Point(12, 113);
             this.lblNombreUsuario.Name = "lblNombreUsuario";
-            this.lblNombreUsuario.Size = new System.Drawing.Size(92, 13);
+            this.lblNombreUsuario.Size = new System.Drawing.Size(98, 13);
             this.lblNombreUsuario.TabIndex = 9;
-            this.lblNombreUsuario.Text = "Nombre y Apellido";
+            this.lblNombreUsuario.Text = "Nombre y Apellido :";
             // 
             // lblDocumentoUsuario
             // 
@@ -198,9 +186,9 @@ namespace CapaPresentacion.Forms
             this.lblDocumentoUsuario.ForeColor = System.Drawing.Color.Gainsboro;
             this.lblDocumentoUsuario.Location = new System.Drawing.Point(12, 56);
             this.lblDocumentoUsuario.Name = "lblDocumentoUsuario";
-            this.lblDocumentoUsuario.Size = new System.Drawing.Size(77, 13);
+            this.lblDocumentoUsuario.Size = new System.Drawing.Size(83, 13);
             this.lblDocumentoUsuario.TabIndex = 8;
-            this.lblDocumentoUsuario.Text = "N° Documento";
+            this.lblDocumentoUsuario.Text = "N° Documento :";
             // 
             // btnCancelarUsuario
             // 
@@ -275,17 +263,27 @@ namespace CapaPresentacion.Forms
             this.txtDocumentoUsuario.Size = new System.Drawing.Size(156, 20);
             this.txtDocumentoUsuario.TabIndex = 6;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.label1.Location = new System.Drawing.Point(45, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Filtro :";
+            // 
             // FormUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(955, 512);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pnlInfoUsuario);
             this.Controls.Add(this.btnEliminarUsuario);
             this.Controls.Add(this.btnModificarUsuario);
             this.Controls.Add(this.btnAgregarUsuario);
-            this.Controls.Add(this.btnBuscarUsuario);
             this.Controls.Add(this.txtBuscarUsuario);
             this.Controls.Add(this.dgvUsuario);
             this.Name = "FormUsuarios";
@@ -303,7 +301,6 @@ namespace CapaPresentacion.Forms
 
         private System.Windows.Forms.DataGridView dgvUsuario;
         private System.Windows.Forms.TextBox txtBuscarUsuario;
-        private FontAwesome.Sharp.IconButton btnBuscarUsuario;
         private FontAwesome.Sharp.IconButton btnAgregarUsuario;
         private FontAwesome.Sharp.IconButton btnModificarUsuario;
         private FontAwesome.Sharp.IconButton btnEliminarUsuario;
@@ -320,5 +317,6 @@ namespace CapaPresentacion.Forms
         private System.Windows.Forms.TextBox txtNombreUsuario;
         private System.Windows.Forms.TextBox txtDocumentoUsuario;
         private System.Windows.Forms.Label lblRolUsuario;
+        private System.Windows.Forms.Label label1;
     }
 }

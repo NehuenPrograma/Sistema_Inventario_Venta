@@ -61,6 +61,7 @@ namespace CapaPresentacion.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.txtSumarStock = new System.Windows.Forms.TextBox();
             this.txtRestarStock = new System.Windows.Forms.TextBox();
+            this.btnEliminarCategoria_ = new FontAwesome.Sharp.IconButton();
             this.pnlInfoProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVentaProducto)).BeginInit();
@@ -70,6 +71,7 @@ namespace CapaPresentacion.Forms
             // 
             // pnlInfoProducto
             // 
+            this.pnlInfoProducto.Controls.Add(this.btnEliminarCategoria_);
             this.pnlInfoProducto.Controls.Add(this.btnAceptarAgregarCategoria);
             this.pnlInfoProducto.Controls.Add(this.txtAgregarCategoria);
             this.pnlInfoProducto.Controls.Add(this.btnAgregarCategoria);
@@ -133,7 +135,7 @@ namespace CapaPresentacion.Forms
             this.btnAgregarCategoria.IconColor = System.Drawing.Color.Black;
             this.btnAgregarCategoria.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAgregarCategoria.IconSize = 23;
-            this.btnAgregarCategoria.Location = new System.Drawing.Point(236, 45);
+            this.btnAgregarCategoria.Location = new System.Drawing.Point(229, 45);
             this.btnAgregarCategoria.Name = "btnAgregarCategoria";
             this.btnAgregarCategoria.Size = new System.Drawing.Size(23, 23);
             this.btnAgregarCategoria.TabIndex = 18;
@@ -453,6 +455,23 @@ namespace CapaPresentacion.Forms
             this.txtRestarStock.Text = "0";
             this.txtRestarStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // btnEliminarCategoria_
+            // 
+            this.btnEliminarCategoria_.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminarCategoria_.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarCategoria_.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(9)))), ((int)(((byte)(90)))));
+            this.btnEliminarCategoria_.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnEliminarCategoria_.IconColor = System.Drawing.Color.Black;
+            this.btnEliminarCategoria_.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnEliminarCategoria_.IconSize = 23;
+            this.btnEliminarCategoria_.Location = new System.Drawing.Point(258, 45);
+            this.btnEliminarCategoria_.Name = "btnEliminarCategoria_";
+            this.btnEliminarCategoria_.Size = new System.Drawing.Size(23, 23);
+            this.btnEliminarCategoria_.TabIndex = 26;
+            this.btnEliminarCategoria_.Text = "-";
+            this.btnEliminarCategoria_.UseVisualStyleBackColor = true;
+            this.btnEliminarCategoria_.Click += new System.EventHandler(this.btnEliminarCategoria__Click);
+            // 
             // FormInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -518,5 +537,6 @@ namespace CapaPresentacion.Forms
         private System.Windows.Forms.TextBox txtAgregarCategoria;
         private FontAwesome.Sharp.IconButton btnAgregarCategoria;
         private FontAwesome.Sharp.IconButton btnAceptarAgregarCategoria;
+        private FontAwesome.Sharp.IconButton btnEliminarCategoria_;
     }
 }

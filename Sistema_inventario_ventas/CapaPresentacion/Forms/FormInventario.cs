@@ -134,7 +134,8 @@ namespace CapaPresentacion.Forms
             pnlInfoProducto.Visible = true;
             limpiarCamposPanel();
             leerCategoria();
-           
+            producto = new Producto();
+
         }
 
         private void limpiarCamposPanel()
@@ -158,11 +159,12 @@ namespace CapaPresentacion.Forms
 
             if (dgvInventario.CurrentRow != null && dgvInventario.CurrentRow.DataBoundItem != null)
             {
-                Producto seleccionado;
-                seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
+                //Producto seleccionado;
+                //seleccionado = (Producto)dgvInventario.CurrentRow.DataBoundItem;
+                producto = (Producto)dgvInventario.CurrentRow.DataBoundItem;
 
                 pnlInfoProducto.Visible = true;
-                cargarProductoEnPanel(seleccionado);
+                cargarProductoEnPanel(producto);
             }
             else
             {
@@ -208,9 +210,6 @@ namespace CapaPresentacion.Forms
                 cargarProductoEnPanel(seleccionado);
             }
         }
-
-
-
 
         private void btnEliminarProducto_Click(object sender, EventArgs e)
         {
@@ -262,23 +261,26 @@ namespace CapaPresentacion.Forms
 
                 
                 // Validacion de campos 
-                if (!string.IsNullOrEmpty(txtNombreProducto.Text) && !string.IsNullOrEmpty(txtTalleProducto.Text) && !string.IsNullOrEmpty(txtColorProducto.Text))
+                if (!string.IsNullOrEmpty(txtNombreProducto.Text) && !string.IsNullOrEmpty(txtTalleProducto.Text) && !string.IsNullOrEmpty(txtColorProducto.Text) && !string.IsNullOrEmpty(txtCodigoProducto.Text))
                 {
                     // Validacion de seleccion Modificar o Agregar
-                    if ( producto.IdProducto != 0)
+                    if (producto.IdProducto == 0) // Nuevo producto
                     {
-                        DialogResult respuesta = MessageBox.Show("Esta a punto de modificar un producto", "Modificando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        if (respuesta == DialogResult.Yes)
+                        if (negocio.productoExiste(producto.Codigo))
                         {
-                            negocio.modificar(producto);
-                            MessageBox.Show("Producto modificado", "Modificar producto", MessageBoxButtons.OK);
+                            MessageBox.Show("El código del producto ya existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            negocio.agregar(producto);
+                            MessageBox.Show("Producto agregado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            limpiarCamposPanel();
                         }
                     }
-                    else
+                    else // Producto existente
                     {
-                        negocio.agregar(producto);
-                        MessageBox.Show("Producto agregado", "Producto Agregado", MessageBoxButtons.OK);
-                        limpiarCamposPanel();
+                        negocio.modificar(producto);
+                        MessageBox.Show("Producto modificado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     cargar();
@@ -287,7 +289,7 @@ namespace CapaPresentacion.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Los campos Nombre, Talle y Color son obligatorios");
+                    MessageBox.Show("Los campos Nombre, Talle, Color y Codigo son obligatorios");
                 }
                 
             }
@@ -397,17 +399,53 @@ namespace CapaPresentacion.Forms
 
         private void btnAceptarAgregarCategoria_Click(object sender, EventArgs e)
         {
-            Categoria categoria = new Categoria(); 
+            Categoria categoria = new Categoria();
             categoria.Descripcion = txtAgregarCategoria.Text;
 
             CD_Categoria nuevaCategoria = new CD_Categoria();
 
-            nuevaCategoria.agregarCategoria(categoria);
-
-            leerCategoria();
+            try
+            {
+                nuevaCategoria.agregarCategoria(categoria);
+                leerCategoria();
+                MessageBox.Show("Categoría agregada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             txtAgregarCategoria.Visible = false;
             btnAceptarAgregarCategoria.Visible = false;
+
+        }
+
+        private void btnEliminarCategoria__Click(object sender, EventArgs e)  // VALIDAR QUE NO ESTE RELACIONADA CON VENTAS O COMPRAS AL MOMENTO 
+            {
+            if (cboCategoria.SelectedItem != null)
+            {
+                Categoria categoriaSeleccionada = (Categoria)cboCategoria.SelectedItem;
+                CD_Categoria datosCategoria = new CD_Categoria();
+
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de que desea eliminar la categoría seleccionada?", "Eliminar Categoría", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
+                    try
+                    {
+                        datosCategoria.eliminarCategoria(categoriaSeleccionada.IdCategoria);
+                        MessageBox.Show("Categoría eliminada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        leerCategoria(); // Actualizar lista de categorías
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una categoría de la lista.", "Categoría no seleccionada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
         }
     }
