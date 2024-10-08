@@ -79,10 +79,11 @@ namespace CapaDatos
 
         public void agregar(Usuario usuario)
         {
+            
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Usuario (Documento, NombreCompleto, Correo, Clave, IdRol) VALUES (@Documento, @NombreCompleto, @Correo, @Clave, @IdRol)");
+                datos.setearConsulta("INSERT INTO Usuario (Documento, NombreCompleto, Correo, Clave, IdRol, Estado) VALUES (@Documento, @NombreCompleto, @Correo, @Clave, @IdRol, 1)");
                 datos.setearParametro("@Documento", usuario.Documento);
                 datos.setearParametro("@NombreCompleto", usuario.NombreCompleto);
                 datos.setearParametro("@Correo", usuario.Correo);
@@ -104,13 +105,12 @@ namespace CapaDatos
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE Usuario SET Documento = @Documento, NombreCompleto = @NombreCompleto, Correo = @Correo, Clave = @Clave, IdRol = @IdRol, FechaRegistro = @FechaRegistro WHERE IdUsuario = @IdUsuario");
+                datos.setearConsulta("UPDATE Usuario SET Documento = @Documento, NombreCompleto = @NombreCompleto, Correo = @Correo, Clave = @Clave, IdRol = @IdRol WHERE IdUsuario = @IdUsuario");
                 datos.setearParametro("@Documento", usuario.Documento);
                 datos.setearParametro("@NombreCompleto", usuario.NombreCompleto);
                 datos.setearParametro("@Correo", usuario.Correo);
                 datos.setearParametro("@Clave", usuario.Clave);
                 datos.setearParametro("@IdRol", usuario.IdRol);
-                datos.setearParametro("@FechaRegistro", usuario.FechaRegistro);
                 datos.setearParametro("@IdUsuario", usuario.IdUsuario);
                 datos.ejecutarAccion();
             }

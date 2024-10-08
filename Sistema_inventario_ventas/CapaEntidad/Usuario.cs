@@ -26,6 +26,5 @@ namespace CapaEntidad
         public Rol oRol { get; set; }
 
         public int IdRol { get; set; }
-        public string FechaRegistro { get; set; }
     }
 }
