@@ -68,7 +68,6 @@ namespace CapaPresentacion.Forms
 
         }
 
-
         private void alinearContenidoCeldas()
         {
             // Alinear la columna al centro
@@ -199,7 +198,6 @@ namespace CapaPresentacion.Forms
             txtCodigoProducto.Text = producto.Codigo;
             // Asigna los demás campos según sea necesario
         }
-
 
         // Actualizar pnlInfoProducto en Modificar segun se cambie el Producto seleccionado
         private void dgvInventario_SelectionChanged(object sender, EventArgs e)

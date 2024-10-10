@@ -188,7 +188,7 @@ namespace CapaPresentacion
         private void btnClientes_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color5);
-            OpenChildForm(new FormClientes());
+            OpenChildForm(new FormClientes(usuarioActual));
         }
 
         private void btnProveedores_Click(object sender, EventArgs e)
