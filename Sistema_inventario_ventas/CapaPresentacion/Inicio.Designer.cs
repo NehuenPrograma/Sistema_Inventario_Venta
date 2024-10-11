@@ -40,13 +40,14 @@ namespace CapaPresentacion
             this.pnlLogo = new System.Windows.Forms.Panel();
             this.btnHome = new System.Windows.Forms.PictureBox();
             this.pnlTitleBar = new System.Windows.Forms.Panel();
+            this.iconExit = new FontAwesome.Sharp.IconButton();
             this.lblNombreUsuario = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitleChildForm = new System.Windows.Forms.Label();
             this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.pnlDesktop = new System.Windows.Forms.Panel();
-            this.iconExit = new FontAwesome.Sharp.IconButton();
             this.pnlMenu = new System.Windows.Forms.Panel();
+            this.btnNegocio = new FontAwesome.Sharp.IconButton();
             this.pnlLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHome)).BeginInit();
             this.pnlTitleBar.SuspendLayout();
@@ -251,6 +252,23 @@ namespace CapaPresentacion
             this.pnlTitleBar.TabIndex = 1;
             this.pnlTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTitleBar_MouseDown);
             // 
+            // iconExit
+            // 
+            this.iconExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
+            this.iconExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconExit.IconChar = FontAwesome.Sharp.IconChar.Remove;
+            this.iconExit.IconColor = System.Drawing.Color.Gainsboro;
+            this.iconExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconExit.IconSize = 18;
+            this.iconExit.Location = new System.Drawing.Point(972, 9);
+            this.iconExit.Name = "iconExit";
+            this.iconExit.Size = new System.Drawing.Size(15, 15);
+            this.iconExit.TabIndex = 3;
+            this.iconExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconExit.UseVisualStyleBackColor = false;
+            this.iconExit.Click += new System.EventHandler(this.iconButton1_Click);
+            // 
             // lblNombreUsuario
             // 
             this.lblNombreUsuario.AutoSize = true;
@@ -305,26 +323,10 @@ namespace CapaPresentacion
             this.pnlDesktop.Size = new System.Drawing.Size(1000, 529);
             this.pnlDesktop.TabIndex = 2;
             // 
-            // iconExit
-            // 
-            this.iconExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
-            this.iconExit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconExit.IconChar = FontAwesome.Sharp.IconChar.Remove;
-            this.iconExit.IconColor = System.Drawing.Color.Gainsboro;
-            this.iconExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconExit.IconSize = 18;
-            this.iconExit.Location = new System.Drawing.Point(972, 9);
-            this.iconExit.Name = "iconExit";
-            this.iconExit.Size = new System.Drawing.Size(15, 15);
-            this.iconExit.TabIndex = 3;
-            this.iconExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconExit.UseVisualStyleBackColor = false;
-            this.iconExit.Click += new System.EventHandler(this.iconButton1_Click);
-            // 
             // pnlMenu
             // 
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
+            this.pnlMenu.Controls.Add(this.btnNegocio);
             this.pnlMenu.Controls.Add(this.btnReportes);
             this.pnlMenu.Controls.Add(this.btnProveedores);
             this.pnlMenu.Controls.Add(this.btnClientes);
@@ -338,6 +340,28 @@ namespace CapaPresentacion
             this.pnlMenu.Name = "pnlMenu";
             this.pnlMenu.Size = new System.Drawing.Size(220, 569);
             this.pnlMenu.TabIndex = 0;
+            // 
+            // btnNegocio
+            // 
+            this.btnNegocio.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnNegocio.FlatAppearance.BorderSize = 0;
+            this.btnNegocio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNegocio.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnNegocio.IconChar = FontAwesome.Sharp.IconChar.Neos;
+            this.btnNegocio.IconColor = System.Drawing.Color.Gainsboro;
+            this.btnNegocio.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnNegocio.IconSize = 32;
+            this.btnNegocio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNegocio.Location = new System.Drawing.Point(0, 470);
+            this.btnNegocio.Name = "btnNegocio";
+            this.btnNegocio.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnNegocio.Size = new System.Drawing.Size(220, 50);
+            this.btnNegocio.TabIndex = 8;
+            this.btnNegocio.Text = "Negocio";
+            this.btnNegocio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNegocio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnNegocio.UseVisualStyleBackColor = true;
+            this.btnNegocio.Click += new System.EventHandler(this.btnNegocio_Click);
             // 
             // Inicio
             // 
@@ -382,6 +406,7 @@ namespace CapaPresentacion
         private System.Windows.Forms.Label lblNombreUsuario;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pnlMenu;
+        private FontAwesome.Sharp.IconButton btnNegocio;
     }
 }
 

@@ -77,6 +77,12 @@
     <Compile Include="Forms\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormNegocio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNegocio.Designer.cs">
+      <DependentUpon>FormNegocio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormProveedores.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormNegocio.resx">
+      <DependentUpon>FormNegocio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormProveedores.resx">
       <DependentUpon>FormProveedores.cs</DependentUpon>

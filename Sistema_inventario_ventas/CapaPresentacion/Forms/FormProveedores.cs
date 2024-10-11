@@ -20,8 +20,6 @@ namespace CapaPresentacion.Forms
         // relacion btnAceptar
         private Proveedor proveedor = null;
 
-        private Usuario usuarioActual;
-
         public FormProveedores()
         {
             InitializeComponent();
@@ -34,6 +32,8 @@ namespace CapaPresentacion.Forms
             cargar();
             alinearContenidoCeldas();
         }
+
+        // DOCUMENTO ES NECESARIO ?
         private void cargar()
         {
             ProveedorNegocio negocio = new ProveedorNegocio();
@@ -48,7 +48,7 @@ namespace CapaPresentacion.Forms
 
                 MessageBox.Show(ex.ToString());
             }
-        }
+        } 
 
         private void ocultarColumnas()
         {

@@ -81,6 +81,7 @@ namespace CapaPresentacion
             public static Color color5 = Color.FromArgb(249,88,155);
             public static Color color6 = Color.FromArgb(24,161,251);
             public static Color color7 = Color.FromArgb(85,216,125);
+            public static Color color8 = Color.FromArgb(255, 203, 92); // BUSCAR UN COLOR
         }
 
 
@@ -202,13 +203,19 @@ namespace CapaPresentacion
             ActivateButton(sender, RGBColors.color7);
             OpenChildForm(new FormReportes());
         }
-        
+        private void btnNegocio_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color8);
+            OpenChildForm(new FormNegocio());
+        }
+
         private void btnHome_Click(object sender, EventArgs e)
         {
             //Resolver conflicto !!!!!
             formularioActivo.Close();
             Reset();
         }
+
 
 
         // no me acuerdo pero sirve ja
@@ -231,7 +238,6 @@ namespace CapaPresentacion
         {
             Application.Exit();
         }
-
-
+        
     }
 }
