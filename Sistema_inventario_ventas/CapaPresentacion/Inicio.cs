@@ -134,6 +134,7 @@ namespace CapaPresentacion
 
                 formularioActivo.Close();
             }
+
             formularioActivo = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
@@ -141,9 +142,7 @@ namespace CapaPresentacion
             pnlDesktop.Tag = formulario;
             formulario.BringToFront();
             formulario.Show();
-            lblTitleChildForm.Text = formulario.Text;
-
-            
+            lblTitleChildForm.Text = formulario.Text;         
 
         }
 

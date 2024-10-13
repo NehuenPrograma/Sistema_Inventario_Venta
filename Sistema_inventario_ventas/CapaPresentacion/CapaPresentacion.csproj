@@ -65,6 +65,18 @@
     <Compile Include="Forms\FormCompras.Designer.cs">
       <DependentUpon>FormCompras.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormDetalleCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDetalleCompra.Designer.cs">
+      <DependentUpon>FormDetalleCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDetalleVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDetalleVenta.Designer.cs">
+      <DependentUpon>FormDetalleVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormCompras.resx">
       <DependentUpon>FormCompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDetalleCompra.resx">
+      <DependentUpon>FormDetalleCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDetalleVenta.resx">
+      <DependentUpon>FormDetalleVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormInventario.resx">
       <DependentUpon>FormInventario.cs</DependentUpon>
