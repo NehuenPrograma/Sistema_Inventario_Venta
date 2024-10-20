@@ -94,6 +94,7 @@ namespace CapaPresentacion.Forms
             // cboTipoDoc
             // 
             this.cboTipoDoc.BackColor = System.Drawing.Color.Gainsboro;
+            this.cboTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipoDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboTipoDoc.FormattingEnabled = true;
             this.cboTipoDoc.Location = new System.Drawing.Point(191, 45);
@@ -323,6 +324,11 @@ namespace CapaPresentacion.Forms
             // 
             this.nudCantidadVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCantidadVenta.Location = new System.Drawing.Point(660, 46);
+            this.nudCantidadVenta.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
             this.nudCantidadVenta.Name = "nudCantidadVenta";
             this.nudCantidadVenta.Size = new System.Drawing.Size(72, 20);
             this.nudCantidadVenta.TabIndex = 23;
@@ -432,6 +438,7 @@ namespace CapaPresentacion.Forms
             this.Controls.Add(this.btnHistorial);
             this.Name = "FormVentas";
             this.Text = "Ventas";
+            this.Load += new System.EventHandler(this.FormVentas_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

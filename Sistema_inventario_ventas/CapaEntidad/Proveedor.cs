@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace CapaEntidad
     {
         public int IdProveedor { get; set; }
         public string Documento { get; set; }
+
+        [DisplayName("Razon Social")]
         public string RazonSocial { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }

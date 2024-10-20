@@ -42,6 +42,7 @@ namespace CapaPresentacion.Forms
             this.lblNombreProveedor = new System.Windows.Forms.Label();
             this.lblNumDoc = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.nudCantidadCompra = new System.Windows.Forms.NumericUpDown();
             this.lblCantidad = new System.Windows.Forms.Label();
             this.lblPrecioVenta = new System.Windows.Forms.Label();
             this.lblPrecioCompra = new System.Windows.Forms.Label();
@@ -54,16 +55,14 @@ namespace CapaPresentacion.Forms
             this.lblCodigoProducto = new System.Windows.Forms.Label();
             this.btnAgregar = new FontAwesome.Sharp.IconButton();
             this.dgvNuevaCompra = new System.Windows.Forms.DataGridView();
-            this.nudTotalCompra = new System.Windows.Forms.NumericUpDown();
             this.lblTotalPagar = new System.Windows.Forms.Label();
             this.btnRegistrarCompra = new FontAwesome.Sharp.IconButton();
-            this.nudCantidadCompra = new System.Windows.Forms.NumericUpDown();
+            this.txtTotalCompra = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaCompra)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTotalCompra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadCompra)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaCompra)).BeginInit();
             this.SuspendLayout();
             // 
             // btnHistorial
@@ -118,6 +117,7 @@ namespace CapaPresentacion.Forms
             // cboTipoDoc
             // 
             this.cboTipoDoc.BackColor = System.Drawing.Color.Gainsboro;
+            this.cboTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipoDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboTipoDoc.FormattingEnabled = true;
             this.cboTipoDoc.Location = new System.Drawing.Point(191, 45);
@@ -131,6 +131,7 @@ namespace CapaPresentacion.Forms
             this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFecha.Location = new System.Drawing.Point(23, 45);
             this.txtFecha.Name = "txtFecha";
+            this.txtFecha.ReadOnly = true;
             this.txtFecha.Size = new System.Drawing.Size(137, 20);
             this.txtFecha.TabIndex = 0;
             // 
@@ -161,6 +162,7 @@ namespace CapaPresentacion.Forms
             this.btnBuscarProveedor.Size = new System.Drawing.Size(33, 23);
             this.btnBuscarProveedor.TabIndex = 7;
             this.btnBuscarProveedor.UseVisualStyleBackColor = true;
+            this.btnBuscarProveedor.Click += new System.EventHandler(this.btnBuscarProveedor_Click);
             // 
             // txtNombreProveedor
             // 
@@ -222,6 +224,20 @@ namespace CapaPresentacion.Forms
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Información del Producto";
             // 
+            // nudCantidadCompra
+            // 
+            this.nudCantidadCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudCantidadCompra.Location = new System.Drawing.Point(660, 46);
+            this.nudCantidadCompra.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.nudCantidadCompra.Name = "nudCantidadCompra";
+            this.nudCantidadCompra.Size = new System.Drawing.Size(72, 20);
+            this.nudCantidadCompra.TabIndex = 24;
+            this.nudCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // lblCantidad
             // 
             this.lblCantidad.AutoSize = true;
@@ -258,6 +274,7 @@ namespace CapaPresentacion.Forms
             this.txtPrecioCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecioCompra.Location = new System.Drawing.Point(454, 46);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
+            this.txtPrecioCompra.ReadOnly = true;
             this.txtPrecioCompra.Size = new System.Drawing.Size(86, 20);
             this.txtPrecioCompra.TabIndex = 15;
             // 
@@ -267,6 +284,7 @@ namespace CapaPresentacion.Forms
             this.txtPrecioVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecioVenta.Location = new System.Drawing.Point(558, 46);
             this.txtPrecioVenta.Name = "txtPrecioVenta";
+            this.txtPrecioVenta.ReadOnly = true;
             this.txtPrecioVenta.Size = new System.Drawing.Size(86, 20);
             this.txtPrecioVenta.TabIndex = 14;
             // 
@@ -281,6 +299,7 @@ namespace CapaPresentacion.Forms
             this.btnBuscarProducto.Size = new System.Drawing.Size(33, 23);
             this.btnBuscarProducto.TabIndex = 12;
             this.btnBuscarProducto.UseVisualStyleBackColor = true;
+            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
             // 
             // txtNombreProducto
             // 
@@ -299,6 +318,7 @@ namespace CapaPresentacion.Forms
             this.txtCodigoProducto.Name = "txtCodigoProducto";
             this.txtCodigoProducto.Size = new System.Drawing.Size(104, 20);
             this.txtCodigoProducto.TabIndex = 10;
+            this.txtCodigoProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoProducto_KeyDown);
             // 
             // lblProducto
             // 
@@ -334,6 +354,7 @@ namespace CapaPresentacion.Forms
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // dgvNuevaCompra
             // 
@@ -342,20 +363,6 @@ namespace CapaPresentacion.Forms
             this.dgvNuevaCompra.Name = "dgvNuevaCompra";
             this.dgvNuevaCompra.Size = new System.Drawing.Size(751, 273);
             this.dgvNuevaCompra.TabIndex = 5;
-            // 
-            // nudTotalCompra
-            // 
-            this.nudTotalCompra.BackColor = System.Drawing.Color.Gainsboro;
-            this.nudTotalCompra.Location = new System.Drawing.Point(825, 259);
-            this.nudTotalCompra.Maximum = new decimal(new int[] {
-            99999999,
-            0,
-            0,
-            0});
-            this.nudTotalCompra.Name = "nudTotalCompra";
-            this.nudTotalCompra.Size = new System.Drawing.Size(77, 20);
-            this.nudTotalCompra.TabIndex = 6;
-            this.nudTotalCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblTotalPagar
             // 
@@ -383,14 +390,16 @@ namespace CapaPresentacion.Forms
             this.btnRegistrarCompra.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRegistrarCompra.UseVisualStyleBackColor = true;
             // 
-            // nudCantidadCompra
+            // txtTotalCompra
             // 
-            this.nudCantidadCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCantidadCompra.Location = new System.Drawing.Point(660, 46);
-            this.nudCantidadCompra.Name = "nudCantidadCompra";
-            this.nudCantidadCompra.Size = new System.Drawing.Size(72, 20);
-            this.nudCantidadCompra.TabIndex = 24;
-            this.nudCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTotalCompra.BackColor = System.Drawing.Color.Gainsboro;
+            this.txtTotalCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalCompra.Location = new System.Drawing.Point(825, 257);
+            this.txtTotalCompra.Name = "txtTotalCompra";
+            this.txtTotalCompra.ReadOnly = true;
+            this.txtTotalCompra.Size = new System.Drawing.Size(77, 20);
+            this.txtTotalCompra.TabIndex = 15;
+            this.txtTotalCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FormCompras
             // 
@@ -398,9 +407,9 @@ namespace CapaPresentacion.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(955, 512);
+            this.Controls.Add(this.txtTotalCompra);
             this.Controls.Add(this.btnRegistrarCompra);
             this.Controls.Add(this.lblTotalPagar);
-            this.Controls.Add(this.nudTotalCompra);
             this.Controls.Add(this.dgvNuevaCompra);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.groupBox3);
@@ -409,15 +418,15 @@ namespace CapaPresentacion.Forms
             this.Controls.Add(this.btnHistorial);
             this.Name = "FormCompras";
             this.Text = "Compras";
+            this.Load += new System.EventHandler(this.FormCompras_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaCompra)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTotalCompra)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadCompra)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaCompra)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,9 +459,9 @@ namespace CapaPresentacion.Forms
         private System.Windows.Forms.Label lblCodigoProducto;
         private FontAwesome.Sharp.IconButton btnAgregar;
         private System.Windows.Forms.DataGridView dgvNuevaCompra;
-        private System.Windows.Forms.NumericUpDown nudTotalCompra;
         private System.Windows.Forms.Label lblTotalPagar;
         private FontAwesome.Sharp.IconButton btnRegistrarCompra;
         private System.Windows.Forms.NumericUpDown nudCantidadCompra;
+        private System.Windows.Forms.TextBox txtTotalCompra;
     }
 }

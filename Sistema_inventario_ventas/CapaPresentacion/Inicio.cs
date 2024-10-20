@@ -22,8 +22,6 @@ namespace CapaPresentacion
         private IconButton botonActivo;
         private Panel leftBorderBtn;
         private Form formularioActivo;
-
-        //
         private static Usuario usuarioActual;
 
         //Constructor
@@ -65,9 +63,6 @@ namespace CapaPresentacion
                 }
             }
             pnlLogo.Visible = true;
-
-
-
 
         }
 
@@ -176,13 +171,13 @@ namespace CapaPresentacion
         private void btnVentas_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color3);
-            OpenChildForm(new FormVentas());
+            OpenChildForm(new FormVentas(usuarioActual));
         }
 
         private void btnCompras_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color4);
-            OpenChildForm(new FormCompras());
+            OpenChildForm(new FormCompras(usuarioActual));
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
