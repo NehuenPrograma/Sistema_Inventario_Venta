@@ -72,5 +72,11 @@ namespace CapaDatos
                 lector.Close();
             conexion.Close();
         }
+
+        public void limpiarParametros()
+        {
+            comando.Parameters.Clear();
+        }
+
     }
 }

@@ -170,6 +170,7 @@ namespace CapaPresentacion.Forms
             this.txtNombreProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreProveedor.Location = new System.Drawing.Point(219, 45);
             this.txtNombreProveedor.Name = "txtNombreProveedor";
+            this.txtNombreProveedor.ReadOnly = true;
             this.txtNombreProveedor.Size = new System.Drawing.Size(178, 20);
             this.txtNombreProveedor.TabIndex = 6;
             // 
@@ -179,6 +180,7 @@ namespace CapaPresentacion.Forms
             this.txtNumeroDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumeroDocumento.Location = new System.Drawing.Point(17, 45);
             this.txtNumeroDocumento.Name = "txtNumeroDocumento";
+            this.txtNumeroDocumento.ReadOnly = true;
             this.txtNumeroDocumento.Size = new System.Drawing.Size(128, 20);
             this.txtNumeroDocumento.TabIndex = 5;
             // 
@@ -307,6 +309,7 @@ namespace CapaPresentacion.Forms
             this.txtNombreProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreProducto.Location = new System.Drawing.Point(182, 46);
             this.txtNombreProducto.Name = "txtNombreProducto";
+            this.txtNombreProducto.ReadOnly = true;
             this.txtNombreProducto.Size = new System.Drawing.Size(225, 20);
             this.txtNombreProducto.TabIndex = 11;
             // 
@@ -358,9 +361,13 @@ namespace CapaPresentacion.Forms
             // 
             // dgvNuevaCompra
             // 
+            this.dgvNuevaCompra.AllowUserToAddRows = false;
             this.dgvNuevaCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNuevaCompra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dgvNuevaCompra.Location = new System.Drawing.Point(55, 214);
             this.dgvNuevaCompra.Name = "dgvNuevaCompra";
+            this.dgvNuevaCompra.ReadOnly = true;
+            this.dgvNuevaCompra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvNuevaCompra.Size = new System.Drawing.Size(751, 273);
             this.dgvNuevaCompra.TabIndex = 5;
             // 
@@ -389,6 +396,7 @@ namespace CapaPresentacion.Forms
             this.btnRegistrarCompra.Text = "Registrar";
             this.btnRegistrarCompra.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRegistrarCompra.UseVisualStyleBackColor = true;
+            this.btnRegistrarCompra.Click += new System.EventHandler(this.btnRegistrarCompra_Click);
             // 
             // txtTotalCompra
             // 

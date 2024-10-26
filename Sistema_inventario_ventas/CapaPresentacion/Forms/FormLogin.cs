@@ -48,7 +48,7 @@ namespace CapaPresentacion.Forms
             }
             else
             {
-                MessageBox.Show("No se encontro el usuario", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Usuario o Contraseña incorrecto\n Pruebe otra vez", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

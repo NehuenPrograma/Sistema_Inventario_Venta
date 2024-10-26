@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CapaEntidad;
 using CapaNegocio;
+using CapaDatos;
 using CapaPresentacion.Utilidades;
 using CapaPresentacion.Modales;
 
@@ -28,26 +29,66 @@ namespace CapaPresentacion.Forms
 
             InitializeComponent();
             dgvNuevaCompra.CellContentClick += dgvNuevaCompra_CellContentClick;
+
+            // Conectar los eventos con `nudCantidadCompra`
+            nudCantidadCompra.Enter += nudCantidadCompra_Enter;
+            nudCantidadCompra.KeyPress += nudCantidadCompra_KeyPress;
+            nudCantidadCompra.KeyDown += nudCantidadCompra_KeyDown;
         }
-        private void OpenChildForm(Form formulario)
+
+        private void nudCantidadCompra_Enter(object sender, EventArgs e)
         {
-            if (formularioActivo != null)
+            if (nudCantidadCompra.Value == 0)
             {
-
-                formularioActivo.Close();
+                nudCantidadCompra.Select(0, nudCantidadCompra.Value.ToString().Length); // Selecciona todo el texto para que se reemplace al escribir
             }
-
-            formularioActivo = formulario;
-            formulario.TopLevel = false;
-            formulario.FormBorderStyle = FormBorderStyle.None;
-            formulario.BringToFront();
-            formulario.Show();
         }
+        private void nudCantidadCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Si no es un dígito o una tecla de control, cancela el evento
+            }
+        }
+        private void nudCantidadCompra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAgregar_Click(sender, e); // Llama al método btnAgregar_Click al presionar Enter
+                e.Handled = true; // Marca el evento como manejado
+                e.SuppressKeyPress = true; // Suprime el sonido "ding"
+            }
+        }
+
+        private void OpenFormInPanel(Form formulario)
+        {
+            Form activeForm = Application.OpenForms.OfType<Form>().FirstOrDefault(f => f.Name == "Inicio");
+            if (activeForm != null)
+            {
+                Panel pnlDesktop = activeForm.Controls.Find("pnlDesktop", true).FirstOrDefault() as Panel;
+                if (pnlDesktop != null)
+                {
+                    if (formularioActivo != null)
+                    {
+                        formularioActivo.Close();
+                    }
+                    formularioActivo = formulario;
+                    formulario.TopLevel = false;
+                    formulario.FormBorderStyle = FormBorderStyle.None;
+                    formulario.Dock = DockStyle.Fill;
+                    pnlDesktop.Controls.Add(formulario);
+                    pnlDesktop.Tag = formulario;
+                    formulario.BringToFront();
+                    formulario.Show();
+                }
+            }
+        }
+
         private void btnHistorial_Click(object sender, EventArgs e)
         {
-            this.Close();
-            OpenChildForm(new FormDetalleVenta());
+            OpenFormInPanel(new FormDetalleCompra(usuarioActual));
         }
+
 
         private void FormCompras_Load(object sender, EventArgs e)
         {
@@ -59,7 +100,7 @@ namespace CapaPresentacion.Forms
             cboTipoDoc.SelectedIndex = 0;
 
             // Obtenemos la fecha actual
-            txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy"); // Validar que no se pueda reescribir !!!
+            txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             // Definir columnas del DataGridView
             dgvNuevaCompra.Columns.Add("Codigo", "Código");
@@ -68,13 +109,15 @@ namespace CapaPresentacion.Forms
             dgvNuevaCompra.Columns.Add("PrecioVenta", "Precio Venta");
             dgvNuevaCompra.Columns.Add("Cantidad", "Cantidad");
             dgvNuevaCompra.Columns.Add("Total", "Total");
+            dgvNuevaCompra.Columns.Add("IdProducto", "Id");
+            dgvNuevaCompra.Columns["IdProducto"].Visible = false; // Ocultar la columna
 
 
             // Añadir columna de botón eliminar con imagen
             DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
             btnEliminar.HeaderText = "Eliminar";
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.UseColumnTextForButtonValue = false; // Necesario para usar imagen
+            btnEliminar.UseColumnTextForButtonValue = true; // EN FALSE es necesario para usar imagen 
             // btnEliminar.Image = Properties.Resources.logo_for_delete_button; // Usa el nombre del recurso !!SOLUCIONAR
             btnEliminar.Text = "Eliminar";
             dgvNuevaCompra.Columns.Add(btnEliminar);
@@ -111,6 +154,21 @@ namespace CapaPresentacion.Forms
             dgvNuevaCompra.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
         }
+        private void limpiarFormulario()
+        {
+            // Limpiar los campos de texto
+            txtNumeroDocumento.Text = string.Empty;
+            txtNombreProveedor.Text = string.Empty;
+            txtCodigoProducto.Text = string.Empty;
+            txtNombreProducto.Text = string.Empty;
+            txtPrecioCompra.Text = string.Empty;
+            txtPrecioVenta.Text = string.Empty;
+            nudCantidadCompra.Value = 0;
+            txtTotalCompra.Text = string.Empty;
+
+            // Limpiar el DataGridView
+            dgvNuevaCompra.Rows.Clear();
+        }
 
         private void btnBuscarProveedor_Click(object sender, EventArgs e)
         {
@@ -129,7 +187,6 @@ namespace CapaPresentacion.Forms
                 }
             }
         }
-
         private void btnBuscarProducto_Click(object sender, EventArgs e)
         {
             using (var modal = new ModalProducto())
@@ -150,7 +207,6 @@ namespace CapaPresentacion.Forms
                 }
             }
         }
-
         private void txtCodigoProducto_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -192,6 +248,11 @@ namespace CapaPresentacion.Forms
                 bool productoExiste = false;
                 int cantidad = (int)nudCantidadCompra.Value;
 
+                if (string.IsNullOrEmpty(txtNombreProducto.Text))
+                {
+                    MessageBox.Show("Debse seleccionar un producto", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
                 if (cantidad == 0)
                 {
                     MessageBox.Show("La cantidad no puede ser cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -229,7 +290,8 @@ namespace CapaPresentacion.Forms
                         txtPrecioCompra.Text,
                         txtPrecioVenta.Text,
                         cantidad,
-                        totalPorProducto.ToString("F2") // Total por cantidad en formato "F2"
+                        totalPorProducto.ToString("F2"), // Total por cantidad en formato "F2"
+                        new ProductoNegocio().Listar().FirstOrDefault(p => p.Codigo == txtCodigoProducto.Text)?.IdProducto
                     );
 
                     // Limpiar los campos después de agregar el producto
@@ -293,6 +355,85 @@ namespace CapaPresentacion.Forms
                 MessageBox.Show($"Error al intentar eliminar el producto: Ningun Producto selecionado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void btnRegistrarCompra_Click(object sender, EventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(txtNombreProveedor.Text))
+            {
+                MessageBox.Show("Debe seleccionar un proveedor", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (dgvNuevaCompra.Rows.Count < 1)
+            {
+                MessageBox.Show("Debse ingresar productos a la compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DataTable tabla = new DataTable();
+
+            tabla.Columns.Add("IdProducto", typeof(int));
+            tabla.Columns.Add("PrecioCompra", typeof(decimal));
+            tabla.Columns.Add("PrecioVenta", typeof(decimal));
+            tabla.Columns.Add("Cantidad", typeof(int));
+            tabla.Columns.Add("MontoTotal", typeof(decimal));
+
+
+            foreach (DataGridViewRow fila in dgvNuevaCompra.Rows)
+            {
+                if (fila.Cells["IdProducto"].Value != null &&
+                    fila.Cells["PrecioCompra"].Value != null &&
+                    fila.Cells["PrecioVenta"].Value != null &&
+                    fila.Cells["Cantidad"].Value != null &&
+                    fila.Cells["Total"].Value != null)
+                {
+                    tabla.Rows.Add(
+                        new object[]
+                        {
+                            Convert.ToInt32(fila.Cells["IdProducto"].Value),
+                            Convert.ToDecimal(fila.Cells["PrecioCompra"].Value),
+                            Convert.ToDecimal(fila.Cells["PrecioVenta"].Value),
+                            Convert.ToInt32(fila.Cells["Cantidad"].Value),
+                            Convert.ToDecimal(fila.Cells["Total"].Value),
+                        });
+                }
+                else
+                {
+                    MessageBox.Show("Falta información en uno de los productos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            int numeroBoleta = new CD_Compra().NumeroBoleta();
+
+            string idBoleta = string.Format("{0:00000}", numeroBoleta);
+
+            // Obtener IdProveedor basado en el Documento
+            int idProveedor = new CD_Proveedor().ObtenerIdProveedorPorDocumento(txtNumeroDocumento.Text);
+
+            Compra oCompra = new Compra()
+            {
+                oUsuario = new Usuario() { IdUsuario = usuarioActual.IdUsuario },
+                oProveedor = new Proveedor() { IdProveedor = idProveedor }, // Asigna el IdProveedor obtenido
+                TipoDocumento = ((OpcionCombo)cboTipoDoc.SelectedItem).Texto,
+                NumeroDocumento = idBoleta,
+                MontoTotal = Convert.ToDecimal(txtTotalCompra.Text),
+                FechaRegistro = DateTime.Now.ToString("dd/MM/yyyy")
+            };
+
+            try
+            {
+                new CD_Compra().Registrar(oCompra, tabla);
+                MessageBox.Show($"Compra existosa\nNúmero de compra: {idBoleta}", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                limpiarFormulario();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al registrar la compra: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
         }
     }
 }

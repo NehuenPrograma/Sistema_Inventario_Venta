@@ -44,6 +44,31 @@ namespace CapaDatos
             }
         }
 
+        public int ObtenerIdProveedorPorDocumento(string documento)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int idProveedor = 0;
+            try
+            {
+                datos.setearConsulta("SELECT IdProveedor FROM Proveedor WHERE Documento = @Documento");
+                datos.setearParametro("@Documento", documento);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    idProveedor = (int)datos.Lector["IdProveedor"];
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return idProveedor;
+        }
+
         public bool ProveedorExiste(string documento)
         {
             AccesoDatos datos = new AccesoDatos();
