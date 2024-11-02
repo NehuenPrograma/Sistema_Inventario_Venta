@@ -60,7 +60,7 @@ namespace CapaDatos
 
             try
             {
-                datos.setearConsulta("INSERT INTO Categoria (Descripcion) VALUES (@Descripcion)");
+                datos.setearConsulta("INSERT INTO Categoria (Descripcion, Estado) VALUES (@Descripcion, 1)");
                 datos.setearParametro("@Descripcion", categoria.Descripcion);
                 datos.ejecutarAccion();
             }

@@ -26,5 +26,10 @@ namespace CapaEntidad
         public Rol oRol { get; set; }
 
         public int IdRol { get; set; }
+
+        public override string ToString()
+        {
+            return NombreCompleto; // Retorna NombreCompleto
+        }
     }
 }

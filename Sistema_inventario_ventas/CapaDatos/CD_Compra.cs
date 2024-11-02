@@ -39,6 +39,7 @@ namespace CapaDatos
         {
             List<Compra> lista = new List<Compra>();
             AccesoDatos datos = new AccesoDatos();
+
             try
             {
                 datos.setearConsulta("SELECT c.IdCompra, u.IdUsuario, u.NombreCompleto as Usuario, p.IdProveedor, p.RazonSocial as Proveedor, " +
@@ -59,34 +60,12 @@ namespace CapaDatos
                         TipoDocumento = (string)datos.Lector["TipoDocumento"],
                         NumeroDocumento = (string)datos.Lector["NumeroDocumento"],
                         MontoTotal = (decimal)datos.Lector["MontoTotal"],
-                        FechaRegistro = (string)datos.Lector["FechaRegistro"],
+                        FechaRegistro = ((DateTime)datos.Lector["FechaRegistro"]).ToString("yyyy-MM-dd HH:mm:ss"),
                         oDetalleCompra = new List<Detalle_Compra>()
                     };
 
-                    datos.setearConsulta("SELECT dc.IdDetalleCompra, dc.IdProducto, p.Nombre, dc.PrecioCompra, dc.Cantidad, dc.MontoTotal, dc.FechaRegistro " +
-                                         "FROM DETALLE_COMPRA dc " +
-                                         "INNER JOIN PRODUCTO p ON dc.IdProducto = p.IdProducto " +
-                                         "WHERE dc.IdCompra = @IdCompra");
-                    datos.setearParametro("@IdCompra", compra.IdCompra);
-
-                    datos.ejecutarLectura();
-                    while (datos.Lector.Read())
-                    {
-                        Detalle_Compra detalle = new Detalle_Compra
-                        {
-                            IdDetalleCompra = (int)datos.Lector["IdDetalleCompra"],
-                            oProducto = new Producto { IdProducto = (int)datos.Lector["IdProducto"], Nombre = (string)datos.Lector["Nombre"] },
-                            PrecioCompra = (decimal)datos.Lector["PrecioCompra"],
-                            Cantidad = (int)datos.Lector["Cantidad"],
-                            MontoTotal = (decimal)datos.Lector["MontoTotal"],
-                            FechaRegistro = (string)datos.Lector["FechaRegistro"]
-                        };
-                        compra.oDetalleCompra.Add(detalle);
-                    }
-
                     lista.Add(compra);
                 }
-                return lista;
             }
             catch (Exception ex)
             {
@@ -96,6 +75,45 @@ namespace CapaDatos
             {
                 datos.cerrarConexion();
             }
+
+            // Obtener detalles de cada compra
+            foreach (var compra in lista)
+            {
+                AccesoDatos datosDetalle = new AccesoDatos();
+                try
+                {
+                    datosDetalle.setearConsulta("SELECT dc.IdDetalleCompra, dc.IdProducto, p.Nombre, dc.PrecioCompra, dc.Cantidad, dc.MontoTotal, dc.FechaRegistro " +
+                                                "FROM DETALLE_COMPRA dc " +
+                                                "INNER JOIN PRODUCTO p ON dc.IdProducto = p.IdProducto " +
+                                                "WHERE dc.IdCompra = @IdCompra");
+                    datosDetalle.setearParametro("@IdCompra", compra.IdCompra);
+                    datosDetalle.ejecutarLectura();
+
+                    while (datosDetalle.Lector.Read())
+                    {
+                        Detalle_Compra detalle = new Detalle_Compra
+                        {
+                            IdDetalleCompra = (int)datosDetalle.Lector["IdDetalleCompra"],
+                            oProducto = new Producto { IdProducto = (int)datosDetalle.Lector["IdProducto"], Nombre = (string)datosDetalle.Lector["Nombre"] },
+                            PrecioCompra = (decimal)datosDetalle.Lector["PrecioCompra"],
+                            Cantidad = (int)datosDetalle.Lector["Cantidad"],
+                            MontoTotal = (decimal)datosDetalle.Lector["MontoTotal"],
+                            FechaRegistro = ((DateTime)datosDetalle.Lector["FechaRegistro"]).ToString("yyyy-MM-dd HH:mm:ss")
+                        };
+                        compra.oDetalleCompra.Add(detalle);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    datosDetalle.cerrarConexion();
+                }
+            }
+
+            return lista;
         }
 
         public void AgregarDetalleCompra(int idCompra, DataTable tabla)

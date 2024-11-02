@@ -391,8 +391,16 @@ namespace CapaPresentacion.Forms
 
         private void btnAgregarCategoria_Click(object sender, EventArgs e)
         {
-            txtAgregarCategoria.Visible = true;
-            btnAceptarAgregarCategoria.Visible = true;
+            if (txtAgregarCategoria.Visible == false)
+            {
+                txtAgregarCategoria.Visible = true;
+                btnAceptarAgregarCategoria.Visible = true;
+            }
+            else
+            {
+                txtAgregarCategoria.Visible = false;
+                btnAceptarAgregarCategoria.Visible = false;
+            }
         }
 
         private void btnAceptarAgregarCategoria_Click(object sender, EventArgs e)

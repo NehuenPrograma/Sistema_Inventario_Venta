@@ -31,7 +31,10 @@ namespace CapaEntidad
 
         [DisplayName("Código")]
         public string Codigo { get; set; }
-        
 
+        public override string ToString()
+        {
+            return $"{(oCategoria?.Descripcion ?? "Sin Categoría")} {Nombre} {Talle} {Color}";
+        }
     }
 }

@@ -30,9 +30,6 @@ namespace CapaPresentacion.Forms
         private void InitializeComponent()
         {
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
-            this.txtFiltro = new System.Windows.Forms.TextBox();
-            this.lblBuscarPor = new System.Windows.Forms.Label();
-            this.cboFiltro = new System.Windows.Forms.ComboBox();
             this.gbInformacionCompra = new System.Windows.Forms.GroupBox();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblTipoDoc = new System.Windows.Forms.Label();
@@ -52,7 +49,6 @@ namespace CapaPresentacion.Forms
             this.btnDescargarPDF = new FontAwesome.Sharp.IconButton();
             this.lblMontoTotal = new System.Windows.Forms.Label();
             this.btnNuevaCompra = new FontAwesome.Sharp.IconButton();
-            this.btnLimpiar = new FontAwesome.Sharp.IconButton();
             this.gbInformacionCompra.SuspendLayout();
             this.gbInformacionProveedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleCompra)).BeginInit();
@@ -60,46 +56,19 @@ namespace CapaPresentacion.Forms
             // 
             // btnBuscar
             // 
+            this.btnBuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(36)))), ((int)(((byte)(191)))));
             this.btnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
             this.btnBuscar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(36)))), ((int)(((byte)(191)))));
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 15;
-            this.btnBuscar.Location = new System.Drawing.Point(304, 29);
+            this.btnBuscar.Location = new System.Drawing.Point(807, 131);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(33, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(129, 38);
             this.btnBuscar.TabIndex = 10;
+            this.btnBuscar.Text = "Buscar Compra";
+            this.btnBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // txtFiltro
-            // 
-            this.txtFiltro.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFiltro.Location = new System.Drawing.Point(166, 31);
-            this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.Size = new System.Drawing.Size(128, 20);
-            this.txtFiltro.TabIndex = 9;
-            // 
-            // lblBuscarPor
-            // 
-            this.lblBuscarPor.AutoSize = true;
-            this.lblBuscarPor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBuscarPor.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblBuscarPor.Location = new System.Drawing.Point(21, 16);
-            this.lblBuscarPor.Name = "lblBuscarPor";
-            this.lblBuscarPor.Size = new System.Drawing.Size(64, 13);
-            this.lblBuscarPor.TabIndex = 8;
-            this.lblBuscarPor.Text = "Buscar por :";
-            // 
-            // cboFiltro
-            // 
-            this.cboFiltro.BackColor = System.Drawing.Color.Gainsboro;
-            this.cboFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboFiltro.FormattingEnabled = true;
-            this.cboFiltro.Location = new System.Drawing.Point(23, 31);
-            this.cboFiltro.Name = "cboFiltro";
-            this.cboFiltro.Size = new System.Drawing.Size(130, 21);
-            this.cboFiltro.TabIndex = 11;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // gbInformacionCompra
             // 
@@ -111,7 +80,7 @@ namespace CapaPresentacion.Forms
             this.gbInformacionCompra.Controls.Add(this.txtFecha);
             this.gbInformacionCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbInformacionCompra.ForeColor = System.Drawing.Color.Gainsboro;
-            this.gbInformacionCompra.Location = new System.Drawing.Point(24, 72);
+            this.gbInformacionCompra.Location = new System.Drawing.Point(24, 15);
             this.gbInformacionCompra.Name = "gbInformacionCompra";
             this.gbInformacionCompra.Size = new System.Drawing.Size(455, 80);
             this.gbInformacionCompra.TabIndex = 12;
@@ -160,6 +129,7 @@ namespace CapaPresentacion.Forms
             this.txtUsuario.ReadOnly = true;
             this.txtUsuario.Size = new System.Drawing.Size(128, 20);
             this.txtUsuario.TabIndex = 12;
+            this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtTipoDocumento
             // 
@@ -170,6 +140,7 @@ namespace CapaPresentacion.Forms
             this.txtTipoDocumento.ReadOnly = true;
             this.txtTipoDocumento.Size = new System.Drawing.Size(128, 20);
             this.txtTipoDocumento.TabIndex = 11;
+            this.txtTipoDocumento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtFecha
             // 
@@ -180,6 +151,7 @@ namespace CapaPresentacion.Forms
             this.txtFecha.ReadOnly = true;
             this.txtFecha.Size = new System.Drawing.Size(128, 20);
             this.txtFecha.TabIndex = 10;
+            this.txtFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // gbInformacionProveedor
             // 
@@ -191,7 +163,7 @@ namespace CapaPresentacion.Forms
             this.gbInformacionProveedor.Controls.Add(this.txtNumDocProveedor);
             this.gbInformacionProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbInformacionProveedor.ForeColor = System.Drawing.Color.Gainsboro;
-            this.gbInformacionProveedor.Location = new System.Drawing.Point(488, 72);
+            this.gbInformacionProveedor.Location = new System.Drawing.Point(488, 15);
             this.gbInformacionProveedor.Name = "gbInformacionProveedor";
             this.gbInformacionProveedor.Size = new System.Drawing.Size(465, 80);
             this.gbInformacionProveedor.TabIndex = 13;
@@ -240,6 +212,7 @@ namespace CapaPresentacion.Forms
             this.txtNumeroCompra.ReadOnly = true;
             this.txtNumeroCompra.Size = new System.Drawing.Size(96, 20);
             this.txtNumeroCompra.TabIndex = 12;
+            this.txtNumeroCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtNombreProveedor
             // 
@@ -250,6 +223,7 @@ namespace CapaPresentacion.Forms
             this.txtNombreProveedor.ReadOnly = true;
             this.txtNombreProveedor.Size = new System.Drawing.Size(128, 20);
             this.txtNombreProveedor.TabIndex = 11;
+            this.txtNombreProveedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtNumDocProveedor
             // 
@@ -260,24 +234,25 @@ namespace CapaPresentacion.Forms
             this.txtNumDocProveedor.ReadOnly = true;
             this.txtNumDocProveedor.Size = new System.Drawing.Size(128, 20);
             this.txtNumDocProveedor.TabIndex = 10;
+            this.txtNumDocProveedor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // dgvDetalleCompra
             // 
             this.dgvDetalleCompra.AllowUserToAddRows = false;
             this.dgvDetalleCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDetalleCompra.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dgvDetalleCompra.Location = new System.Drawing.Point(24, 158);
+            this.dgvDetalleCompra.Location = new System.Drawing.Point(24, 101);
             this.dgvDetalleCompra.Name = "dgvDetalleCompra";
             this.dgvDetalleCompra.ReadOnly = true;
             this.dgvDetalleCompra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDetalleCompra.Size = new System.Drawing.Size(772, 321);
+            this.dgvDetalleCompra.Size = new System.Drawing.Size(772, 378);
             this.dgvDetalleCompra.TabIndex = 14;
             // 
             // txtTotalCompra
             // 
             this.txtTotalCompra.BackColor = System.Drawing.Color.Gainsboro;
             this.txtTotalCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalCompra.Location = new System.Drawing.Point(815, 215);
+            this.txtTotalCompra.Location = new System.Drawing.Point(815, 253);
             this.txtTotalCompra.Name = "txtTotalCompra";
             this.txtTotalCompra.ReadOnly = true;
             this.txtTotalCompra.Size = new System.Drawing.Size(107, 20);
@@ -304,7 +279,7 @@ namespace CapaPresentacion.Forms
             this.lblMontoTotal.AutoSize = true;
             this.lblMontoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMontoTotal.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblMontoTotal.Location = new System.Drawing.Point(833, 196);
+            this.lblMontoTotal.Location = new System.Drawing.Point(833, 234);
             this.lblMontoTotal.Name = "lblMontoTotal";
             this.lblMontoTotal.Size = new System.Drawing.Size(70, 13);
             this.lblMontoTotal.TabIndex = 16;
@@ -326,25 +301,12 @@ namespace CapaPresentacion.Forms
             this.btnNuevaCompra.UseVisualStyleBackColor = true;
             this.btnNuevaCompra.Click += new System.EventHandler(this.btnNuevaCompra_Click);
             // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.IconChar = FontAwesome.Sharp.IconChar.Broom;
-            this.btnLimpiar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(36)))), ((int)(((byte)(191)))));
-            this.btnLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnLimpiar.IconSize = 15;
-            this.btnLimpiar.Location = new System.Drawing.Point(343, 29);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(33, 23);
-            this.btnLimpiar.TabIndex = 20;
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            // 
             // FormDetalleCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(955, 512);
-            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnNuevaCompra);
             this.Controls.Add(this.txtTotalCompra);
             this.Controls.Add(this.btnDescargarPDF);
@@ -352,10 +314,7 @@ namespace CapaPresentacion.Forms
             this.Controls.Add(this.dgvDetalleCompra);
             this.Controls.Add(this.gbInformacionProveedor);
             this.Controls.Add(this.gbInformacionCompra);
-            this.Controls.Add(this.cboFiltro);
             this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.txtFiltro);
-            this.Controls.Add(this.lblBuscarPor);
             this.Name = "FormDetalleCompra";
             this.Text = "Historial de compras";
             this.gbInformacionCompra.ResumeLayout(false);
@@ -371,9 +330,6 @@ namespace CapaPresentacion.Forms
         #endregion
 
         private FontAwesome.Sharp.IconButton btnBuscar;
-        private System.Windows.Forms.TextBox txtFiltro;
-        private System.Windows.Forms.Label lblBuscarPor;
-        private System.Windows.Forms.ComboBox cboFiltro;
         private System.Windows.Forms.GroupBox gbInformacionCompra;
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblTipoDoc;
@@ -393,6 +349,5 @@ namespace CapaPresentacion.Forms
         private FontAwesome.Sharp.IconButton btnDescargarPDF;
         private System.Windows.Forms.Label lblMontoTotal;
         private FontAwesome.Sharp.IconButton btnNuevaCompra;
-        private FontAwesome.Sharp.IconButton btnLimpiar;
     }
 }

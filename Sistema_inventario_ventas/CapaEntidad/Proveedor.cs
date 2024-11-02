@@ -18,5 +18,10 @@ namespace CapaEntidad
         public string Telefono { get; set; }
         public bool Estado { get; set; }
         public string FechaRegistro { get; set; }
+
+        public override string ToString()
+        {
+            return RazonSocial; // Retorna RazonSocial
+        }
     }
 }

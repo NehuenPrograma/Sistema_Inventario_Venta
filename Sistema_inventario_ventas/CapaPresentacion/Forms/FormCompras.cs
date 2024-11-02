@@ -350,7 +350,7 @@ namespace CapaPresentacion.Forms
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 MessageBox.Show($"Error al intentar eliminar el producto: Ningun Producto selecionado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
