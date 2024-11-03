@@ -33,7 +33,5 @@ namespace CapaEntidad
         [DisplayName("Fecha Registro")]
         public string FechaRegistro { get; set; }
 
-
-
     }
 }

@@ -34,7 +34,7 @@ namespace CapaEntidad
 
         public override string ToString()
         {
-            return $"{(oCategoria?.Descripcion ?? "Sin Categoría")} {Nombre} {Talle} {Color}";
+            return $"{Codigo}, {Nombre}, {Talle}, {Color}";
         }
     }
 }

@@ -77,6 +77,7 @@ namespace CapaPresentacion.Modales
             this.Controls.Add(this.txtBuscarCompra);
             this.Controls.Add(this.dgvCompra);
             this.Name = "ModalDetalleCompra";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ModalDetalleCompra";
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompra)).EndInit();
             this.ResumeLayout(false);

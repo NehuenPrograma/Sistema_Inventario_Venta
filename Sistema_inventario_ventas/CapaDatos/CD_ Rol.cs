@@ -48,9 +48,5 @@ namespace CapaDatos
             }
         }
 
-        public void agregarCategoria()
-        {
-
-        }
     }
 }

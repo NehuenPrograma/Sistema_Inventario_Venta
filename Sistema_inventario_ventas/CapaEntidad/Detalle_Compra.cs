@@ -17,7 +17,7 @@ namespace CapaEntidad
         [DisplayName("Precio Compra")]
         public decimal PrecioCompra { get; set; }
 
-        [DisplayName("Precio venta")]
+        [DisplayName("Precio Venta")]
         public decimal PrecioVenta { get; set; }
 
         public int Cantidad { get; set; }
@@ -25,7 +25,11 @@ namespace CapaEntidad
         [DisplayName("Monto")]
         public decimal MontoTotal { get; set; }
 
-
         public string FechaRegistro { get; set; }
+
+        public override string ToString()
+        {
+            return oProducto.oCategoria.Descripcion;
+        }
     }
 }

@@ -33,6 +33,11 @@ namespace CapaPresentacion.Forms
             //btnBuscar.Click += btnBuscar_Click;
         }
 
+        private void FormDetalleCompra_Load(object sender, EventArgs e)
+        {
+            dgvDetalleCompra.DataError += new DataGridViewDataErrorEventHandler(dgvDetalleCompra_DataError);
+        }
+
 
         private void alinearContenidoCeldas()
         {
@@ -49,8 +54,8 @@ namespace CapaPresentacion.Forms
             }
 
             // Establecer el ancho de la columna Producto
-            dgvDetalleCompra.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvDetalleCompra.Columns[1].Width = 200;
+            dgvDetalleCompra.Columns["ProductoDescripcion"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvDetalleCompra.Columns["ProductoDescripcion"].Width = 200;
 
             // Alinear los encabezados al centro
             foreach (DataGridViewColumn column in dgvDetalleCompra.Columns)
@@ -97,36 +102,79 @@ namespace CapaPresentacion.Forms
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            ModalDetalleCompra modal = new ModalDetalleCompra();
-            var result = modal.ShowDialog();
-            if (result == DialogResult.OK)
+            try
             {
-                Compra seleccionada = modal._compra;
-
-                txtFecha.Text = seleccionada.FechaRegistro;
-                txtTipoDocumento.Text = seleccionada.TipoDocumento;
-                txtUsuario.Text = seleccionada.oUsuario.NombreCompleto;
-                txtNumDocProveedor.Text = seleccionada.oProveedor.Documento;
-                txtNombreProveedor.Text = seleccionada.oProveedor.RazonSocial;
-                txtNumeroCompra.Text = seleccionada.NumeroDocumento;
-                txtTotalCompra.Text = seleccionada.MontoTotal.ToString("F2");
-
-                // Cargar detalles de la compra en el DataGridView
-                dgvDetalleCompra.DataSource = seleccionada.oDetalleCompra;
-
-                // Ajustar las celdas para mostrar la descripción completa del producto
-                foreach (DataGridViewRow row in dgvDetalleCompra.Rows)
+                ModalDetalleCompra modal = new ModalDetalleCompra();
+                var result = modal.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    if (row.Cells["oProducto"].Value is Producto producto)
-                    {
-                        row.Cells["oProducto"].Value = producto.ToString();
-                    }
-                }
+                    Compra seleccionada = modal._compra;
 
-                alinearContenidoCeldas();
-                ocultarColumnas();
+                    txtFecha.Text = seleccionada.FechaRegistro;
+                    txtTipoDocumento.Text = seleccionada.TipoDocumento;
+                    txtUsuario.Text = seleccionada.oUsuario.NombreCompleto;
+                    txtNumDocProveedor.Text = seleccionada.oProveedor.Documento;
+                    txtNombreProveedor.Text = seleccionada.oProveedor.RazonSocial;
+                    txtNumeroCompra.Text = seleccionada.NumeroDocumento;
+                    txtTotalCompra.Text = seleccionada.MontoTotal.ToString("F2");
+
+                    try
+                    {
+                        // Cargar detalles de la compra en el DataGridView
+                        dgvDetalleCompra.DataSource = seleccionada.oDetalleCompra;
+
+                        // Agregar una nueva columna personalizada para la representación de Producto
+                        if (!dgvDetalleCompra.Columns.Contains("ProductoDescripcion"))
+                        {
+                            DataGridViewTextBoxColumn descripcionColumna = new DataGridViewTextBoxColumn
+                            {
+                                Name = "ProductoDescripcion",
+                                HeaderText = "Producto",
+                                DataPropertyName = "ProductoDescripcion",
+                                ReadOnly = true,
+                                Width = 200 // Establecer el ancho de la columna
+                            };
+                            dgvDetalleCompra.Columns.Insert(0, descripcionColumna);
+                        }
+
+                        // Ajustar las celdas para mostrar la descripción completa del producto
+                        foreach (DataGridViewRow row in dgvDetalleCompra.Rows)
+                        {
+                            if (row.Cells["oProducto"].Value is Producto producto)
+                            {
+                                row.Cells["ProductoDescripcion"].Value = producto.ToString();
+                            }
+                        }
+
+                        // Hacer la columna original 'oProducto' invisible
+                        dgvDetalleCompra.Columns["oProducto"].Visible = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al cargar detalles de la compra: " + ex.Message);
+                    }
+
+                    alinearContenidoCeldas();
+                    ocultarColumnas();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error: " + ex.Message);
             }
         }
+
+
+
+        private void dgvDetalleCompra_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            Console.WriteLine($"DataError en la columna {dgvDetalleCompra.Columns[e.ColumnIndex].Name}, fila {e.RowIndex}: {e.Exception.Message}");
+            e.ThrowException = false;
+            e.Cancel = true;
+        }
+
+
+
 
     }
 }

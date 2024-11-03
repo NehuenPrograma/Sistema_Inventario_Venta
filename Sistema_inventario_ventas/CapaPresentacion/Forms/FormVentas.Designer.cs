@@ -57,15 +57,14 @@ namespace CapaPresentacion.Forms
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnAgregar = new FontAwesome.Sharp.IconButton();
             this.dgvNuevaVenta = new System.Windows.Forms.DataGridView();
-            this.nudTotalVenta = new System.Windows.Forms.NumericUpDown();
-            this.lblTotalPagar = new System.Windows.Forms.Label();
             this.btnRegistrarCompra = new FontAwesome.Sharp.IconButton();
+            this.txtTotalCompra = new System.Windows.Forms.TextBox();
+            this.lbTotalCompra = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadVenta)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaVenta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTotalVenta)).BeginInit();
             this.SuspendLayout();
             // 
             // btnHistorial
@@ -163,6 +162,7 @@ namespace CapaPresentacion.Forms
             this.txtNumeroDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumeroDocumento.Location = new System.Drawing.Point(17, 45);
             this.txtNumeroDocumento.Name = "txtNumeroDocumento";
+            this.txtNumeroDocumento.ReadOnly = true;
             this.txtNumeroDocumento.Size = new System.Drawing.Size(128, 20);
             this.txtNumeroDocumento.TabIndex = 5;
             // 
@@ -172,6 +172,7 @@ namespace CapaPresentacion.Forms
             this.txtNombreCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreCliente.Location = new System.Drawing.Point(219, 45);
             this.txtNombreCliente.Name = "txtNombreCliente";
+            this.txtNombreCliente.ReadOnly = true;
             this.txtNombreCliente.Size = new System.Drawing.Size(178, 20);
             this.txtNombreCliente.TabIndex = 6;
             // 
@@ -238,6 +239,7 @@ namespace CapaPresentacion.Forms
             this.txtNombreProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreProducto.Location = new System.Drawing.Point(182, 46);
             this.txtNombreProducto.Name = "txtNombreProducto";
+            this.txtNombreProducto.ReadOnly = true;
             this.txtNombreProducto.Size = new System.Drawing.Size(169, 20);
             this.txtNombreProducto.TabIndex = 11;
             // 
@@ -259,6 +261,7 @@ namespace CapaPresentacion.Forms
             this.txtPrecioVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecioVenta.Location = new System.Drawing.Point(575, 46);
             this.txtPrecioVenta.Name = "txtPrecioVenta";
+            this.txtPrecioVenta.ReadOnly = true;
             this.txtPrecioVenta.Size = new System.Drawing.Size(69, 20);
             this.txtPrecioVenta.TabIndex = 14;
             // 
@@ -298,6 +301,7 @@ namespace CapaPresentacion.Forms
             this.txtTalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTalle.Location = new System.Drawing.Point(369, 46);
             this.txtTalle.Name = "txtTalle";
+            this.txtTalle.ReadOnly = true;
             this.txtTalle.Size = new System.Drawing.Size(56, 20);
             this.txtTalle.TabIndex = 20;
             // 
@@ -317,6 +321,7 @@ namespace CapaPresentacion.Forms
             this.txtColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtColor.Location = new System.Drawing.Point(443, 46);
             this.txtColor.Name = "txtColor";
+            this.txtColor.ReadOnly = true;
             this.txtColor.Size = new System.Drawing.Size(98, 20);
             this.txtColor.TabIndex = 22;
             // 
@@ -381,31 +386,6 @@ namespace CapaPresentacion.Forms
             this.dgvNuevaVenta.Size = new System.Drawing.Size(751, 273);
             this.dgvNuevaVenta.TabIndex = 14;
             // 
-            // nudTotalVenta
-            // 
-            this.nudTotalVenta.BackColor = System.Drawing.Color.Gainsboro;
-            this.nudTotalVenta.Location = new System.Drawing.Point(825, 259);
-            this.nudTotalVenta.Maximum = new decimal(new int[] {
-            99999999,
-            0,
-            0,
-            0});
-            this.nudTotalVenta.Name = "nudTotalVenta";
-            this.nudTotalVenta.Size = new System.Drawing.Size(77, 20);
-            this.nudTotalVenta.TabIndex = 15;
-            this.nudTotalVenta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lblTotalPagar
-            // 
-            this.lblTotalPagar.AutoSize = true;
-            this.lblTotalPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPagar.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblTotalPagar.Location = new System.Drawing.Point(823, 235);
-            this.lblTotalPagar.Name = "lblTotalPagar";
-            this.lblTotalPagar.Size = new System.Drawing.Size(76, 13);
-            this.lblTotalPagar.TabIndex = 16;
-            this.lblTotalPagar.Text = "Total a pagar :";
-            // 
             // btnRegistrarCompra
             // 
             this.btnRegistrarCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(123)))), ((int)(((byte)(19)))));
@@ -421,15 +401,37 @@ namespace CapaPresentacion.Forms
             this.btnRegistrarCompra.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRegistrarCompra.UseVisualStyleBackColor = true;
             // 
+            // txtTotalCompra
+            // 
+            this.txtTotalCompra.BackColor = System.Drawing.Color.Gainsboro;
+            this.txtTotalCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalCompra.Location = new System.Drawing.Point(825, 257);
+            this.txtTotalCompra.Name = "txtTotalCompra";
+            this.txtTotalCompra.ReadOnly = true;
+            this.txtTotalCompra.Size = new System.Drawing.Size(77, 20);
+            this.txtTotalCompra.TabIndex = 19;
+            this.txtTotalCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lbTotalCompra
+            // 
+            this.lbTotalCompra.AutoSize = true;
+            this.lbTotalCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalCompra.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lbTotalCompra.Location = new System.Drawing.Point(823, 235);
+            this.lbTotalCompra.Name = "lbTotalCompra";
+            this.lbTotalCompra.Size = new System.Drawing.Size(76, 13);
+            this.lbTotalCompra.TabIndex = 18;
+            this.lbTotalCompra.Text = "Total a pagar :";
+            // 
             // FormVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(955, 512);
+            this.Controls.Add(this.txtTotalCompra);
+            this.Controls.Add(this.lbTotalCompra);
             this.Controls.Add(this.btnRegistrarCompra);
-            this.Controls.Add(this.lblTotalPagar);
-            this.Controls.Add(this.nudTotalVenta);
             this.Controls.Add(this.dgvNuevaVenta);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.groupBox3);
@@ -447,7 +449,6 @@ namespace CapaPresentacion.Forms
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNuevaVenta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTotalVenta)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -483,8 +484,8 @@ namespace CapaPresentacion.Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private FontAwesome.Sharp.IconButton btnAgregar;
         private System.Windows.Forms.DataGridView dgvNuevaVenta;
-        private System.Windows.Forms.NumericUpDown nudTotalVenta;
-        private System.Windows.Forms.Label lblTotalPagar;
         private FontAwesome.Sharp.IconButton btnRegistrarCompra;
+        private System.Windows.Forms.TextBox txtTotalCompra;
+        private System.Windows.Forms.Label lbTotalCompra;
     }
 }

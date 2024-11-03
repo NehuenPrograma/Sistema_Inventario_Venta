@@ -197,6 +197,7 @@ namespace CapaPresentacion
             ActivateButton(sender, RGBColors.color7);
             OpenChildForm(new FormReportes());
         }
+
         private void btnNegocio_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color8);

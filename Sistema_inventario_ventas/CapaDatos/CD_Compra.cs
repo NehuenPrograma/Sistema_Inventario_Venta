@@ -42,11 +42,7 @@ namespace CapaDatos
 
             try
             {
-                datos.setearConsulta("SELECT c.IdCompra, u.IdUsuario, u.NombreCompleto as Usuario, p.IdProveedor, p.RazonSocial as Proveedor, " +
-                                     "c.TipoDocumento, c.NumeroDocumento, c.MontoTotal, c.FechaRegistro " +
-                                     "FROM COMPRA c " +
-                                     "INNER JOIN USUARIO u ON c.IdUsuario = u.IdUsuario " +
-                                     "INNER JOIN PROVEEDOR p ON c.IdProveedor = p.IdProveedor");
+                datos.setearConsulta("SELECT c.IdCompra, u.IdUsuario, u.NombreCompleto, u.IdRol, p.IdProveedor, p.RazonSocial, c.TipoDocumento, c.NumeroDocumento, c.MontoTotal, c.FechaRegistro FROM COMPRA c INNER JOIN USUARIO u ON c.IdUsuario = u.IdUsuario INNER JOIN PROVEEDOR p ON c.IdProveedor = p.IdProveedor");
 
                 datos.ejecutarLectura();
 
@@ -55,8 +51,17 @@ namespace CapaDatos
                     Compra compra = new Compra
                     {
                         IdCompra = (int)datos.Lector["IdCompra"],
-                        oUsuario = new Usuario { IdUsuario = (int)datos.Lector["IdUsuario"], NombreCompleto = (string)datos.Lector["Usuario"] },
-                        oProveedor = new Proveedor { IdProveedor = (int)datos.Lector["IdProveedor"], RazonSocial = (string)datos.Lector["Proveedor"] },
+                        oUsuario = new Usuario 
+                        { 
+                            IdUsuario = (int)datos.Lector["IdUsuario"], 
+                            NombreCompleto = (string)datos.Lector["NombreCompleto"],
+                            IdRol = (int)datos.Lector["IdRol"]
+                        },
+                        oProveedor = new Proveedor 
+                        { 
+                            IdProveedor = (int)datos.Lector["IdProveedor"], 
+                            RazonSocial = (string)datos.Lector["RazonSocial"] 
+                        },
                         TipoDocumento = (string)datos.Lector["TipoDocumento"],
                         NumeroDocumento = (string)datos.Lector["NumeroDocumento"],
                         MontoTotal = (decimal)datos.Lector["MontoTotal"],
@@ -82,10 +87,7 @@ namespace CapaDatos
                 AccesoDatos datosDetalle = new AccesoDatos();
                 try
                 {
-                    datosDetalle.setearConsulta("SELECT dc.IdDetalleCompra, dc.IdProducto, p.Nombre, dc.PrecioCompra, dc.Cantidad, dc.MontoTotal, dc.FechaRegistro " +
-                                                "FROM DETALLE_COMPRA dc " +
-                                                "INNER JOIN PRODUCTO p ON dc.IdProducto = p.IdProducto " +
-                                                "WHERE dc.IdCompra = @IdCompra");
+                    datosDetalle.setearConsulta("SELECT dc.IdDetalleCompra, dc.IdProducto, p.Nombre, p.Codigo, p.Color, p.PrecioCompra, p.PrecioVenta, p.Stock, p.Talle, c.Descripcion as Categoria, dc.PrecioCompra, dc.PrecioVenta, dc.Cantidad, dc.MontoTotal, dc.FechaRegistro FROM DETALLE_COMPRA dc INNER JOIN PRODUCTO p ON dc.IdProducto = p.IdProducto INNER JOIN CATEGORIA c ON p.IdCategoria = c.IdCategoria WHERE dc.IdCompra = @IdCompra");
                     datosDetalle.setearParametro("@IdCompra", compra.IdCompra);
                     datosDetalle.ejecutarLectura();
 
@@ -94,8 +96,23 @@ namespace CapaDatos
                         Detalle_Compra detalle = new Detalle_Compra
                         {
                             IdDetalleCompra = (int)datosDetalle.Lector["IdDetalleCompra"],
-                            oProducto = new Producto { IdProducto = (int)datosDetalle.Lector["IdProducto"], Nombre = (string)datosDetalle.Lector["Nombre"] },
+                            oProducto = new Producto 
+                            { 
+                                IdProducto = (int)datosDetalle.Lector["IdProducto"], 
+                                Nombre = (string)datosDetalle.Lector["Nombre"],
+                                Codigo = (string)datosDetalle.Lector["Codigo"],
+                                Color = (string)datosDetalle.Lector["Color"],
+                                PrecioCompra = (decimal)datosDetalle.Lector["PrecioCompra"],
+                                PrecioVenta = (decimal)datosDetalle.Lector["PrecioVenta"],
+                                Stock = (int)datosDetalle.Lector["Stock"],
+                                Talle = (string)datosDetalle.Lector["Talle"],
+                                oCategoria = new Categoria 
+                                { 
+                                    Descripcion = (string)datosDetalle.Lector["Categoria"] 
+                                }
+                            },
                             PrecioCompra = (decimal)datosDetalle.Lector["PrecioCompra"],
+                            PrecioVenta = (decimal)datosDetalle.Lector["PrecioVenta"],
                             Cantidad = (int)datosDetalle.Lector["Cantidad"],
                             MontoTotal = (decimal)datosDetalle.Lector["MontoTotal"],
                             FechaRegistro = ((DateTime)datosDetalle.Lector["FechaRegistro"]).ToString("yyyy-MM-dd HH:mm:ss")
