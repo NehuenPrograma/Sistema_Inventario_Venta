@@ -224,6 +224,95 @@ namespace CapaDatos
             }
         }
 
+        public Compra ObtenerCompraPorId(int idCompra)
+        {
+            Compra compra = new Compra();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT c.IdCompra, u.IdUsuario, u.NombreCompleto, u.IdRol, p.IdProveedor, p.RazonSocial, p.Documento, p.Correo, p.Telefono, c.TipoDocumento, c.NumeroDocumento, c.MontoTotal, c.FechaRegistro FROM COMPRA c INNER JOIN USUARIO u ON c.IdUsuario = u.IdUsuario INNER JOIN PROVEEDOR p ON c.IdProveedor = p.IdProveedor WHERE c.IdCompra = @IdCompra");
+                datos.setearParametro("@IdCompra", idCompra);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    compra.IdCompra = (int)datos.Lector["IdCompra"];
+                    compra.oUsuario = new Usuario
+                    {
+                        IdUsuario = (int)datos.Lector["IdUsuario"],
+                        NombreCompleto = (string)datos.Lector["NombreCompleto"],
+                        IdRol = (int)datos.Lector["IdRol"]
+                    };
+                    compra.oProveedor = new Proveedor
+                    {
+                        IdProveedor = (int)datos.Lector["IdProveedor"],
+                        RazonSocial = (string)datos.Lector["RazonSocial"],
+                        Documento = (string)datos.Lector["Documento"],
+                        Correo = (string)datos.Lector["Correo"],
+                        Telefono = (string)datos.Lector["Telefono"]
+                    };
+                    compra.TipoDocumento = (string)datos.Lector["TipoDocumento"];
+                    compra.NumeroDocumento = (string)datos.Lector["NumeroDocumento"];
+                    compra.MontoTotal = (decimal)datos.Lector["MontoTotal"];
+                    compra.FechaRegistro = ((DateTime)datos.Lector["FechaRegistro"]).ToString("yyyy-MM-dd HH:mm:ss");
+                    compra.oDetalleCompra = ObtenerDetallesCompra(compra.IdCompra);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return compra;
+        }
+
+        private List<Detalle_Compra> ObtenerDetallesCompra(int idCompra)
+        {
+            List<Detalle_Compra> detalles = new List<Detalle_Compra>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT dc.IdDetalleCompra, dc.IdProducto, p.Nombre, p.Codigo, p.Color, p.Talle, dc.PrecioCompra, dc.PrecioVenta, dc.Cantidad, dc.MontoTotal, dc.FechaRegistro FROM DETALLE_COMPRA dc INNER JOIN PRODUCTO p ON dc.IdProducto = p.IdProducto WHERE dc.IdCompra = @IdCompra");
+                datos.setearParametro("@IdCompra", idCompra);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Detalle_Compra detalle = new Detalle_Compra
+                    {
+                        IdDetalleCompra = (int)datos.Lector["IdDetalleCompra"],
+                        oProducto = new Producto
+                        {
+                            IdProducto = (int)datos.Lector["IdProducto"],
+                            Nombre = (string)datos.Lector["Nombre"],
+                            Codigo = (string)datos.Lector["Codigo"],
+                            Color = (string)datos.Lector["Color"],
+                            Talle = (string)datos.Lector["Talle"]
+                        },
+                        PrecioCompra = (decimal)datos.Lector["PrecioCompra"],
+                        PrecioVenta = (decimal)datos.Lector["PrecioVenta"],
+                        Cantidad = (int)datos.Lector["Cantidad"],
+                        MontoTotal = (decimal)datos.Lector["MontoTotal"],
+                        FechaRegistro = ((DateTime)datos.Lector["FechaRegistro"]).ToString("yyyy-MM-dd HH:mm:ss")
+                    };
+                    detalles.Add(detalle);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return detalles;
+        }
 
     }
 }

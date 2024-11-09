@@ -49,6 +49,7 @@ namespace CapaPresentacion.Forms
             this.btnDescargarPDF = new FontAwesome.Sharp.IconButton();
             this.lblMontoTotal = new System.Windows.Forms.Label();
             this.btnNuevaCompra = new FontAwesome.Sharp.IconButton();
+            this.txtIdCompra = new System.Windows.Forms.TextBox();
             this.gbInformacionCompra.SuspendLayout();
             this.gbInformacionProveedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleCompra)).BeginInit();
@@ -273,6 +274,7 @@ namespace CapaPresentacion.Forms
             this.btnDescargarPDF.Text = "Descargar PDF";
             this.btnDescargarPDF.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnDescargarPDF.UseVisualStyleBackColor = true;
+            this.btnDescargarPDF.Click += new System.EventHandler(this.btnDescargarPDF_Click);
             // 
             // lblMontoTotal
             // 
@@ -301,12 +303,25 @@ namespace CapaPresentacion.Forms
             this.btnNuevaCompra.UseVisualStyleBackColor = true;
             this.btnNuevaCompra.Click += new System.EventHandler(this.btnNuevaCompra_Click);
             // 
+            // txtIdCompra
+            // 
+            this.txtIdCompra.BackColor = System.Drawing.Color.Gainsboro;
+            this.txtIdCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIdCompra.Location = new System.Drawing.Point(815, 190);
+            this.txtIdCompra.Name = "txtIdCompra";
+            this.txtIdCompra.ReadOnly = true;
+            this.txtIdCompra.Size = new System.Drawing.Size(48, 20);
+            this.txtIdCompra.TabIndex = 20;
+            this.txtIdCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtIdCompra.Visible = false;
+            // 
             // FormDetalleCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(955, 512);
+            this.Controls.Add(this.txtIdCompra);
             this.Controls.Add(this.btnNuevaCompra);
             this.Controls.Add(this.txtTotalCompra);
             this.Controls.Add(this.btnDescargarPDF);
@@ -349,5 +364,6 @@ namespace CapaPresentacion.Forms
         private FontAwesome.Sharp.IconButton btnDescargarPDF;
         private System.Windows.Forms.Label lblMontoTotal;
         private FontAwesome.Sharp.IconButton btnNuevaCompra;
+        private System.Windows.Forms.TextBox txtIdCompra;
     }
 }

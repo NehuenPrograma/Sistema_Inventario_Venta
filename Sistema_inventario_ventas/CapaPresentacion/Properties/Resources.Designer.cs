@@ -69,5 +69,38 @@ namespace CapaPresentacion.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Web Page Design&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        table.border {
+        ///            border-collapse: collapse;
+        ///        }
+        ///
+        ///            table.border th {
+        ///                text-align: center;
+        ///                padding: 5px;
+        ///            }
+        ///
+        ///            table.border td {
+        ///                text-align: center;
+        ///                padding: 5px;
+        ///            }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;table border=&quot;0&quot; style=&quot;width:100%&quot;&gt;
+        ///        &lt;tr&gt;
+        ///
+        ///            &lt;td style=&quot;width:15%&quot; [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        public static string PlantillaCompra {
+            get {
+                return ResourceManager.GetString("PlantillaCompra", resourceCulture);
+            }
+        }
     }
 }

@@ -12,6 +12,10 @@ using CapaNegocio;
 using CapaDatos;
 using CapaPresentacion.Utilidades;
 using CapaPresentacion.Modales;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 
 namespace CapaPresentacion.Forms
 {
@@ -110,6 +114,8 @@ namespace CapaPresentacion.Forms
                 {
                     Compra seleccionada = modal._compra;
 
+                    txtIdCompra.Text = seleccionada.IdCompra.ToString();
+
                     txtFecha.Text = seleccionada.FechaRegistro;
                     txtTipoDocumento.Text = seleccionada.TipoDocumento;
                     txtUsuario.Text = seleccionada.oUsuario.NombreCompleto;
@@ -164,8 +170,6 @@ namespace CapaPresentacion.Forms
             }
         }
 
-
-
         private void dgvDetalleCompra_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             Console.WriteLine($"DataError en la columna {dgvDetalleCompra.Columns[e.ColumnIndex].Name}, fila {e.RowIndex}: {e.Exception.Message}");
@@ -173,8 +177,131 @@ namespace CapaPresentacion.Forms
             e.Cancel = true;
         }
 
+        private Compra ObtenerCompraSeleccionada()
+        {
+            ModalDetalleCompra modal = new ModalDetalleCompra();
+            var result = modal.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                return modal._compra;
+            }
+            return null;
+        }
 
+        private void btnDescargarPDF_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtIdCompra.Text))
+            {
+                MessageBox.Show("No se encontraron resultados", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
+            int idCompraSeleccionada;
+            if (!int.TryParse(txtIdCompra.Text, out idCompraSeleccionada))
+            {
+                MessageBox.Show("ID de compra no válido", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            Compra compraSeleccionada = new CD_Compra().ObtenerCompraPorId(idCompraSeleccionada);
+
+            if (compraSeleccionada == null)
+            {
+                MessageBox.Show("No se encontró ninguna compra con ese ID", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            
+
+            string Texto_HTML = Properties.Resources.PlantillaCompra.ToString();
+
+            Negocio datos = new CD_Negocio().obtenerNegocio();
+
+            // Obtener la imagen del logo como una cadena Base64
+            string logoBase64 = datos.Logo != null ? Convert.ToBase64String(datos.Logo) : string.Empty;
+            string imgTag = !string.IsNullOrEmpty(logoBase64) ? $"<img src='data:image/png;base64,{logoBase64}' width='150' height='150' />" : string.Empty;
+
+            // Reemplazar el marcador de posición con la etiqueta de imagen
+            Texto_HTML = Texto_HTML.Replace("@LogoImage", imgTag);
+            Texto_HTML = Texto_HTML.Replace("@NombreNegocio", datos.Nombre.ToUpper());
+            Texto_HTML = Texto_HTML.Replace("@DireccionNegocio", datos.Direccion.ToUpper());
+            Texto_HTML = Texto_HTML.Replace("@DocNegocio", datos.RUC);
+
+            Texto_HTML = Texto_HTML.Replace("@Fecha", txtFecha.Text.ToUpper());
+            Texto_HTML = Texto_HTML.Replace("@NumeroBoleta", txtNumeroCompra.Text.ToUpper());
+            
+            // Reemplazar los datos del proveedor
+            if (compraSeleccionada?.oProveedor != null)
+            {
+                Texto_HTML = Texto_HTML.Replace("@NombreProveedor", compraSeleccionada.oProveedor.RazonSocial);
+                Texto_HTML = Texto_HTML.Replace("@Cuit", compraSeleccionada.oProveedor.Documento);
+                Texto_HTML = Texto_HTML.Replace("@CorreoProveedor", compraSeleccionada.oProveedor.Correo);
+            }
+
+            // Verificación adicional para asegurarse de que oUsuario no sea null
+            if (compraSeleccionada?.oUsuario != null)
+            {
+                Texto_HTML = Texto_HTML.Replace("@NombreUsuario", txtUsuario.Text);
+            }
+
+            //string filas = string.Empty;
+            //
+            //foreach (DataGridView row in dgvDetalleCompra.Rows)
+            //{
+            //    filas += "<tr>";
+            //    filas += "<td>" + row.Cells["Producto"].Value.ToString() + "</td>";
+            //    filas += "<td>" + row.Cells["Precio"].Value.ToString() + "</td>";
+            //    filas += "<td>" + row.Cells["Cantidad"].Value.ToString() + "</td>";
+            //    filas += "<td>" + row.Cells["MontoTotal"].Value.ToString() + "</td>";
+            //    filas += "</tr>";
+            //}
+
+            string productosHTML = "";
+            foreach (var detalle in compraSeleccionada.oDetalleCompra)
+            {
+                productosHTML += "<tr>";
+                productosHTML += $"<td>Codigo: {detalle.oProducto.Codigo}<br />  {detalle.oProducto.Nombre},  {detalle.oProducto.Talle},  {detalle.oProducto.Color}</td>";
+                productosHTML += $"<td>{detalle.Cantidad}</td>";
+                productosHTML += $"<td>{detalle.PrecioVenta}</td>";
+                productosHTML += $"<td>{detalle.MontoTotal}</td>";
+                productosHTML += "</tr>";
+            }
+            Texto_HTML = Texto_HTML.Replace("@filas", productosHTML);
+            Texto_HTML = Texto_HTML.Replace("@MontoTotal", txtTotalCompra.Text);
+
+            SaveFileDialog savefile = new SaveFileDialog();
+            savefile.FileName = string.Format("Compra_{0}.pdf", compraSeleccionada.NumeroDocumento);
+            savefile.Filter = "Pdf Files |*.pdf";
+
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                using (FileStream stream = new FileStream(savefile.FileName, FileMode.Create))
+                {
+                    Document pdf = new Document(PageSize.A4, 25, 25, 25, 25);
+                    PdfWriter writer = PdfWriter.GetInstance(pdf, stream);
+                    pdf.Open();
+
+                    Negocio negocio = new CD_Negocio().obtenerNegocio();
+                    byte[] logo = negocio.Logo;
+
+                    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(logo);
+                    img.ScaleToFit(60, 60);
+                    img.Alignment = iTextSharp.text.Image.UNDERLYING;
+                    img.SetAbsolutePosition(pdf.Left, pdf.GetTop(51));
+                    pdf.Add(img);
+
+                    using (StringReader reader = new StringReader(Texto_HTML))
+                    {
+                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdf, reader);
+                    }
+
+                    pdf.Close();
+                    stream.Close();
+
+                    MessageBox.Show("Documento Guardado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
 
     }
 }
